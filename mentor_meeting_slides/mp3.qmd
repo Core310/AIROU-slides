@@ -1,0 +1,32 @@
+---
+format: 
+  revealjs:
+    theme: simple
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.0       # maximum scaling
+    title-slide: false
+    scrollable: true
+
+---
+
+# arcpro_rl Tasks for this week 
+
+-   Reviewing basics of RL, I can provide all my notes for it next week and what i've learnt
+-   After review, will read [navDreams](https://arxiv.org/abs/2203.12299) in full, seeing their current methods and how it differs to ours
+-   (Concurrently) Setup the sim on the nuc + verify current motor controllers work (and that camera is fetching)
+
+After:
+
+-   Create task list for improvements/fixes in the current model that need to be done
+-   Look into transfer learning as per Aaron's recommendation: https://github.com/cfzd/Ultra-Fast-Lane-Detection
+
+# arcpro_rl Questions 
+
+-   learns autonomous maneuvers from RGB frames only, how do I currently feed odem data in? (motor enc)
+    -   From Aaron: `discrete action space that has slow medium and fast continuous action for acceleration`
+-   Allowed to slightly point the camera down to atleast get the view infront of the robot? Would be nice if can see directly infront of robot (tilt should be accounted for by the model)
+-   Given I'm using the new class bots, I'm **not** using LIDAR and IR/active depth perception from realsense
+-   Because realsense is a stero camera, may the RL parse depth from both cameras? Or considered active by then?..

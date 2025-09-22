@@ -1,0 +1,29 @@
+---
+format: 
+  revealjs:
+    theme: simple
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.0       # maximum scaling
+    title-slide: false
+    scrollable: true
+
+---
+
+# AboutMe
+Hi! I'm Arika.
+
+- From Singapore
+- I'm 23, started at OU in FA 24
+- Finishing undergrad FA26, masters FA27
+- Still relatively new to robotics 
+- Interest general software development/productivity 
+- I do bouldering for fun & love outdoors
+
+# Current Projects
+- Taking over Aarons project arcpro_rl (RL camera only autonav model)
+- Part of Sooner Competitive Robotics
+- Started the FRANCIS project over the summer
+
