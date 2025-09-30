@@ -24,7 +24,7 @@ Lane detection:
 
 # What I've read this week
 
--   Finished reviewing on reinforcement learning which you can find the notes I made for it [here](https://core310.github.io/notes/RLnotes)
+-   Finished reviewing on reinforcement learning which you can find the notes I made for it [here](https://core310.github.io/AIROU-slides/RLNotes)
     -   This took a while to get thru but helped me get up to speed on everything
 -   Gathered papers and sites I've used into a zotero library
 
