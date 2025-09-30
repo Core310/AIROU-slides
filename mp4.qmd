@@ -1,0 +1,49 @@
+---
+format: 
+  revealjs:
+    theme: night
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.0       # maximum scaling
+    title-slide: false
+    scrollable: true
+    transition: slide
+    background-transition: fade
+---
+
+# Project updates
+
+Lane detection:
+
+-  Will take a look at SCR's code and likely use about the same logic (but just in a RL model), exporting each frame as a greyscale, 
+	-  Major drawback which would be nice to consider (espically if I want to implement it for selfdrive in SCR) is to consider dymanic light conditions, however can likely simualte all possible ones in unity 
+-   Looking at Aarons suggestion of [Ultra-Fast-Lane-Detection](https://github.com/cfzd/Ultra-Fast-Lane-Detection)
+
+
+# What I've read this week
+
+-   Finished reviewing on reinforcement learning which you can find the notes I made for it [here](https://core310.github.io/notes/RLnotes)
+    -   This took a while to get thru but helped me get up to speed on everything
+-   Gathered papers and sites I've used into a zotero library
+
+# Things I'm reading up on
+
+-   Still havent fully looked up the repo things
+-   reading up on [Unity Machine Learning Agents Toolkit](https://github.com/Unity-Technologies/ml-agents)
+-   Looked at another example with RL in unity sim [here](https://flyyufelix.github.io/2018/09/11/donkey-rl-simulation.html)
+
+# Other updates
+
+-   Logged into website, emailed Gladis for short info script, get talent form, and picture (optional).
+    -   **Confirm members to mark as alumni**
+-   FRANCIS project is going OK. Having trouble generating global waypointing, deciding how to proceed currently
+    -   Issue: LIDAR takes in 15V via 3.5mm barrel jack, however unsure how to power it (use small rig?). Ordering a 3.5mm barrel jack to usb-c may not sovle our issue. Thinking of order a Barrel Male Plug Connector Pigtail
+    -   Trying to get the GNSS waypointing example working in time. However I will need to feed the pointcloud data into a map server, liekly using [octomap2](https://github.com/iKrishneel/octomap_server2)
+
+# Misc Interesting things I've run into
+
+-   Found an interesting interactive [paper](https://accelagent.github.io/) on generating training enviorments for agents with reinforcement learning
+-   I normally use my obsidan vault for everything, however I never really wanted to pay to publish a site using my vault. I've found [Quartz 4](https://quartz.jzhao.xyz/), which plugs directly into my vault. This would be nice if I ever wanted to overhaul our wiki, or generate documentation on a large project using markdown.
+    -   This was found from a website [here](https://stevengong.co/notes/Camera-Calibration) which seems to have A LOT of very well documented notes on robotics.
