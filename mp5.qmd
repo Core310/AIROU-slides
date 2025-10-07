@@ -1,0 +1,41 @@
+---
+format: 
+  revealjs:
+    theme: night
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.0       # maximum scaling
+    title-slide: false
+    scrollable: true
+    transition: slide
+    background-transition: fade
+---
+
+# Arcpro_pre_mapped Updates
+- Figured out everything on the robot (how the roboracer works) but have some major issues now to adress
+	- Have all the nodes up and running (messaged Evan just to confirm a few things)
+- A bit busy this week, have exam on Thursday, so will likely be focusing on that today/tmr.
+- Most of the basecode for the nav2 waypointing as been setup, I just need to get the transformations using tf in
+
+# Software Updates
+ - I have the costmap filter setup for the lane detection
+- Using nav2 with their costmap filters
+- AMCL for localization 
+- A* for Planner
+- Repo can be found [here](https://github.com/airou-lab/arcpro_waypoint_with_map) 
+
+# Robot Issues
+- Talked with Evan, encountered weird issue of when running teleop and vesc, the board. 
+	- Running both nodes resulted in the STM32 being bricked (the blue light is on, but green and red)
+	- However, connecting to the arcpro 4 resulted in a still OK robot, hence is likely the STM32 issue needing to be reflashed
+- Also asked Daniel (have not heard back since I started working on this at like 2330)
+
+# Presentation Questions:
+- I'm presenting this week correct?
+- Given I don't have that much to present (I semi confident I can get the robot driving autonomosuly around befroe Friday), should I also include some of the papers I've read?
+	- tf trees
+	- navDreams
+- What else would you like to see in the Presentatio ns?
+
