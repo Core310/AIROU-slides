@@ -1,0 +1,177 @@
+---
+title: "Group J"
+format: 
+  revealjs:
+    transition: slide
+    theme: dark
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.0       # maximum scaling
+    title-slide: false
+    scrollable: true
+---
+
+```{.python .editable code-block="true"}
+class Project:
+  def __init__(self, log_transitions=False):
+    self.log_transitions = log_transitions
+    self.approved = False
+    self.KPI_breached = False
+    self.paused = False
+    self.finished = False
+    self.state = Draft()
+
+  def handle(self):
+    prev_state = self.state
+    self.state = self.state.transition(self)
+    if self.log_transitions:
+      print(f"{prev_state} --> {self.state}")
+
+  # Draft --> Submitted
+  def submit(self):
+    if isinstance(self.state, Draft):
+      self.handle()
+    else:
+      raise TypeError(f"Cannot submit during state {self.state}")
+
+  # Submitted --> Approved
+  def approve(self):
+    if isinstance(self.state, Submitted):
+      self.approved = True
+      self.handle()
+    else:
+      raise TypeError(f"Cannot approve during state {self.state}")
+
+  # Submitted --> Draft
+  def reject(self):
+    if isinstance(self.state, Submitted):
+      self.approved = False
+      self.handle()
+    else:
+      raise TypeError(f"Cannot reject during state {self.state}")
+
+  # Approved --> Active
+  def kickoff(self):
+    if isinstance(self.state, Approved):
+      self.handle()
+    else:
+      raise TypeError(f"Cannot kick off during state {self.state}")
+
+  # Active --> AtRisk
+  def KPI_breach(self):
+    if isinstance(self.state, Active):
+      self.KPI_breached = True
+      self.handle()
+    else:
+      raise TypeError(f"Cannot declare breach during state {self.state}")
+
+  # AtRisk --> OnHold
+  def pause(self):
+    if isinstance(self.state, AtRisk):
+      self.paused = True
+      self.handle()
+    else:
+      raise TypeError(f"Cannot pause during state {self.state}")
+
+  # AtRisk --> Active
+  # OnHold --> Active
+  def resume(self):
+    if isinstance(self.state, AtRisk) or isinstance(self.state, OnHold):
+      self.paused = False
+      self.KPI_breached = False
+      self.handle()
+    else:
+      raise TypeError(f"Cannot resume during state {self.state}")
+
+  # Active --> Completed
+  # AtRisk --> Completed
+  def finish(self):
+    if isinstance(self.state, Active) or isinstance(self.state, AtRisk):
+      self.finished = True
+      self.handle()
+    else:
+      raise TypeError(f"Cannot finish during state {self.state}")
+
+  # Completed --> Archived
+  def finalize(self):
+    if isinstance(self.state, Completed):
+      self.handle()
+    else:
+      raise TypeError(f"Cannot finalize during state {self.state}")
+
+
+
+class State:
+  def transition(self, project):
+    raise NotImplementedError
+  def __str__(self):
+    return type(self).__name__
+
+class Draft(State):
+  def transition(self, project):
+    return Submitted() # submit()
+
+class Submitted(State):
+  def transition(self, project):
+
+    if project.approved: # approve()
+      return Approved()
+
+    return Draft() # reject()
+
+class Approved(State):
+  def transition(self, project):
+    return Active() # kickoff()
+
+class Active(State):
+  def transition(self, project):
+
+    if project.KPI_breached: # KPI_breach()
+      return AtRisk()
+
+    return Completed() # finish()
+
+class AtRisk(State):
+  def transition(self, project):
+
+    if project.paused: # pause()
+      return OnHold()
+
+    elif project.finished: # finish()
+      return Completed()
+
+    return Active() # resume()
+
+class OnHold(State):
+  def transition(self, project):
+    return Active() # resume()
+
+class Completed(State):
+  def transition(self, project):
+    return Archived() # finalize()
+
+class Archived(State):
+  def transition(self, project):
+    raise TypeError("Archived projects may not be altered")
+```
+
+```{.python .editable code-block="true"}
+myProj = Project(log_transitions=True)
+
+myProj.submit()
+myProj.reject()
+myProj.submit()
+myProj.approve()
+myProj.kickoff()
+myProj.KPI_breach()
+myProj.pause()
+myProj.resume()
+myProj.KPI_breach()
+myProj.resume()
+myProj.finish()
+myProj.finalize()
+myProj.reject()
+```
+
