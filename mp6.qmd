@@ -1,0 +1,38 @@
+---
+format: 
+  revealjs:
+    theme: night
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.0       # maximum scaling
+    title-slide: false
+    scrollable: true
+    transition: slide
+    background-transition: fade
+---
+# Software Updates
+- I have most of the code running, though have not tested.
+- Will start testing today and give a secondary update by Friday.
+- May have to remap the entire area with the realsense given the lines have changed, then manually draw the lines ontop of it.
+
+# Car Firmware Updates
+- Car is working again
+	- Still unsure the cause, we should make sure that the vesc is updated before launching. Possible to have been a hardware issue that occured due to 
+		- The vesc being out of date was NOT known to evan, and I did not know it was something that should have been checked before. Recommended (I will do start of Nov) to 
+- Documented the process I went through debugging over the several days, avaliable on my Obsidan vault which I will eventually get around to having online for ease of viewing
+	- We should have a simple preflight checklist to check the cars before running anything (I'll make one after gathering all the info about the bots). This would include just checking battery/vesc version/ubuntu enviorment
+
+# Items todo later
+- Document (If not already?) the entire car setup 
+	- How the car works electrically, ideally how to build it from scratch? (Unless we already have this, then it should be in our wiki)
+	- Sam's Ansible script, it would be nice to convert the working enviorment into a docker container for ease of sharing/publishing (converting to a docker container isnt too hard and I could do it given time)
+- Reflash car 4 (the other car in cabinet 4), given that it needs the latest vesc versio not to brick (assumed this is the issue).
+
+
+# Unrelated Items of interest
+- I've found [this](https://stevengong.co/notes/F1TENTH-Field-Usage#3-map-post-processing-offline-using-macbook-pro) documentation on the bots that's quite helpful
+	- Its by a robotics grad student that documents extremely well. I'm planning to do the same.
+- I'm assuming this was one of the papers cited in the minicity idea: [Visual Navigation for Autonomous Vehicles: An Open-source Hands-on Robotics Course at MIT](https://arxiv.org/pdf/2206.00777) 
+	- Will try to read up on it once I'm done with the project
