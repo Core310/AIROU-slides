@@ -1,0 +1,43 @@
+---
+format: 
+  revealjs:
+    theme: night
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.0       # maximum scaling
+    title-slide: false
+    scrollable: true
+    transition: slide
+    background-transition: fade
+---
+# Done this week
+
+- Costmap keepout zone (aslso took a while)
+- Some weird lifecycle issues with my nav stack.. (**this was the major issue that took the longest**)**
+	- Occured due to using navigation_launch.py instead of bringup_launch.py 
+	- Error was lidar spinning wrong topic
+- Grabbed a basic urdf for the robots, do we actually have one? I dont recall seeing any..
+- Many code rewrites (see next slide)
+
+# Things I had to rewrite or convert to jazzy
+- Fixed LIDAR setup, current (atleast for me) the Vanv robot doesn't have the LIDAR setup so I had to actually fix it. I can share how to do it if wished. Invovled a fair bit of workm used it for the AMCL.
+- Took several hours trying to get an actual remote desktop working... Had some weird issues attempting to rd into the nuc, now works.
+- Had to completely redo the robot driver code.. 
+	- Caused due to odom topic only activating when robot started to drive
+- Needed to grab odom of the device, which wasnt actually working... so I had to do that entirely myself..
+	- Original robot was built for humble, not compatiable, had to do several changes
+	
+# Current issues:
+- Faulty boost converter on robot? 
+	- Could be due to vesc config that evan and I screwed up on, will check further in on this
+- Costmap not publishing? (Topic issue)
+- Have to launch lidar seperately? Else it doesnt bring up the lidar topic (race condition?)
+- optmize the path planning..
+- Create a more accurate pointcloud of the area then mark keepout zones with it
+
+# Other items:
+- Small request if possible to take a little bit off after I ship this out after. Spent a lot of time trying to get this to work. Pretty much every day of this week and last weekend i was working on this (need to catch up on class work in school)
+	- Spent about 65~ hours in the past week alone on this project, documenting as i go along, but lots of things to fix.. (It would have been simple in isolation but there's several non programming related items that had to be adressed)
+	- Programming still had a fair amount of bugs going with jazzy..
