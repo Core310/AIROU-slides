@@ -127,27 +127,34 @@
     <div class="slides">
 
 
-<section id="arcpro-waypointer-updates" class="title-slide slide level1 center">
+<section id="arcpro-waypointer-updates" class="title-slide slide level1 scrollable center">
 <h1>ArcPro waypointer Updates</h1>
-<p><strong>TLDR</strong> Robot still isn’t waypointing, working on <a href="https://github.com/airou-lab/arcpro_waypoint_with_map">SLAM to generate map</a>. Very close to having it done, but cannot verify <a href="https://roboticsknowledgebase.com/wiki/state-estimation/adaptive-monte-carlo-localization/">AMCL</a> working until have the pre-mapped area. <strong>New features</strong> - Made Lidar work - Odom working (from a PR), remade entire vesc repo - Both tasks had to change some of the Humble code to Jazzy, fairly basic changes. Will be pushed out to Vnav base repo later for students to use - Grabbed basic urdf of robot from f1tenth repo, will implement later after done for cleaner represntation</p>
+<p>TLDR: Robot still isn’t waypointing, working on <a href="https://github.com/airou-lab/arcpro_waypoint_with_map">SLAM to generate map</a>. Very close to having it done, but cannot verify <a href="https://roboticsknowledgebase.com/wiki/state-estimation/adaptive-monte-carlo-localization/">AMCL</a> working until have the pre-mapped area.</p>
+<p>New features:</p>
+<ul>
+<li>Made Lidar work</li>
+<li>Odom working (from a PR), remade entire vesc repo
+<ul>
+<li>Both tasks had to change some of the Humble code to Jazzy, fairly basic changes. Will be pushed out to Vnav base repo later for students to use</li>
+</ul></li>
+<li>Grabbed basic urdf of robot from f1tenth repo, will implement later after done for cleaner represntation</li>
+</ul>
 </section>
 
+<section>
 <section id="issues-i-ran-into" class="title-slide slide level1 center">
 <h1>Issues I ran into</h1>
 <ul>
 <li>Ran into issues using nav2 with vesc, both were publishing on the same topic</li>
 <li>Currently working on SLAM using <a href="https://github.com/SteveMacenski/slam_toolbox">slamtoolbox</a> as needed to re-map the robot, running into some issues with the topics being run on simulation</li>
 <li>Had some issues with remote desktop on the nuc so had to use rustdesk</li>
-</ul>
-</section>
-
-<section id="other-issuesconcerns" class="title-slide slide level1 center">
-<h1>Other Issues/concerns</h1>
-<ul>
 <li>Batteries for nuc are sometimes running out much earlier than usual, will need to test further</li>
 </ul>
-
 </section>
+<section id="section" class="slide level2">
+<h2><img data-src="https://i.imgur.com/k4RIHeK.png%7C" style="width:100.0%"></h2>
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

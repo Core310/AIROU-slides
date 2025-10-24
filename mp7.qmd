@@ -13,7 +13,6 @@ format:
     background-transition: fade
 ---
 # Done this week
-
 - Costmap keepout zone (aslso took a while)
 - Some weird lifecycle issues with my nav stack.. (**this was the major issue that took the longest**)**
 	- Occured due to using navigation_launch.py instead of bringup_launch.py 

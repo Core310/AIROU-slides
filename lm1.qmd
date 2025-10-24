@@ -13,9 +13,11 @@ format:
     background-transition: fade
 ---
 
-# ArcPro waypointer Updates
-**TLDR** Robot still isn't waypointing, working on [SLAM to generate map](https://github.com/airou-lab/arcpro_waypoint_with_map). Very close to having it done, but cannot verify [AMCL](https://roboticsknowledgebase.com/wiki/state-estimation/adaptive-monte-carlo-localization/) working until have the pre-mapped area. 
-**New features**
+# ArcPro waypointer Updates {.scrollable}
+TLDR: Robot still isn't waypointing, working on [SLAM to generate map](https://github.com/airou-lab/arcpro_waypoint_with_map). Very close to having it done, but cannot verify [AMCL](https://roboticsknowledgebase.com/wiki/state-estimation/adaptive-monte-carlo-localization/) working until have the pre-mapped area. 
+
+New features:
+
 - Made Lidar work
 - Odom working (from a PR), remade entire vesc repo
 	- Both tasks had to change some of the Humble code to Jazzy, fairly basic changes. Will be pushed out to Vnav base repo later for students to use
@@ -25,7 +27,11 @@ format:
 - Ran into issues using nav2 with vesc, both were publishing on the same topic 
 - Currently working on SLAM using [slamtoolbox](https://github.com/SteveMacenski/slam_toolbox) as needed to re-map the robot, running into some issues with the topics being run on simulation 
 - Had some issues with remote desktop on the nuc so had to use rustdesk
-
-# Other Issues/concerns
 - Batteries for nuc are sometimes running out much earlier than usual, will need to test further
+
+## ![](https://i.imgur.com/k4RIHeK.png|){width="100%"}
+
+
+
+
 
