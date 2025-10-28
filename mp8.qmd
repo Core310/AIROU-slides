@@ -1,0 +1,39 @@
+---
+format: 
+  revealjs:
+    theme: night
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.0       # maximum scaling
+    title-slide: false
+    scrollable: true
+    transition: slide
+    background-transition: fade
+---
+
+## Week of 24 (last week)
+- Encountered issues with odometry not publishing due to VESC misconfiguration; resolved by reflashing and reconfiguring motor controller.
+- Corrected map topic issues caused by using the wrong Nav2 image; switched to bringup image for full functionality.
+- Fixed "Robot out of bounds of the costmap" error by aligning map frame correctly.
+- Investigated timestamp errors and "No map received" issue in RViz.
+- Identified proper topic controlling wheel motion.
+- Created and tested converter node to handle Twist vs TwistStamped topic mismatch, enabling proper robot drive control.
+- Generated pre-map point cloud but faced odom alignment and playback issues.
+- Began setup of EKF-based robot_localization node to support SLAM stability.
+
+## Week of 27 (this week)
+- Resolved LiDAR communication issue; SLAM node now runs but map generation still blocked by faulty odometry.
+- Explored using robot_localization to fuse IMU with scan data instead of relying on odom.
+- Tested and reset F1TENTH default VESC configuration multiple times due to breakages.
+- Diagnosed and corrected drift from right wheel alignment issue.
+- Spent significant time manually recalculating odometry parameters.
+- Confirmed SLAM failure linked to odometry drift.
+- Detected malfunction in leftmost wheel when moving forward.
+
+## Current Status
+- Odometry response remains inconsistent: turning in RViz is less sensitive than physical turning.
+- Need to adjust appropriate parameter in F1TENTH config to synchronize real-world rotation with simulation.
+
+See [here](https://imgur.com/1j96BEY) for an example.
