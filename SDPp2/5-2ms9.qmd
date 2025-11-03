@@ -1,0 +1,104 @@
+---
+format: 
+  revealjs:
+    theme: moon
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.0       # maximum scaling
+    title-slide: false
+    scrollable: true
+    transition: slide
+    background-transition: fade
+    header: "hsrbtgr"
+    footer: "Builder Design Pattern, CS 4213 - Group J"
+
+---
+# P5-2 Design Objective, Builder (Creational)
+
+Group J - Arika, Hunter, Umar, Trinh, Vincent.
+
+
+
+# Why?
+
+Solves different issues run into with Factory/Abstract Factory 
+
+- Factory: Large amount of arguments passed from client to server  
+
+- Factory: Inability to set optional parameters as pre-set values, must be marked as NULL 
+
+- Complex objects will extend to the parent factory using it, increasing complexity further down abstraction.  
+
+# **Pro**/Cons (taken from refactoring.guru) 
+
+- **Pro**: Defer construction steps or run steps recursively (ease of refactoring) 
+
+- **Pro**: Reuse code when building various representations of Products (could be a con..) 
+
+- **Pro**: Single Responsibility, isolate complex code from selected components of the Pro**gram (also could be a con) 
+
+- **Con**: Overall complexity increases given pattern requires multiple new object templates 
+
+
+# Context
+- Normalizes object configuration and initialization.
+
+In the state diagram editor, each State/Transition can have many optional attributes. For example, entry/exit actions, guard conditions, and visual properties. This pattern allows the system to incrementally assemble these objects without requiring massive constructors or inconsistent setup logic. Without it, end up with fragile initialization scattered across the codebase, making it difficult to refactor states.
+
+# Code example
+```java
+public class Computer {
+    
+    //required parameters
+    private String arg1;    
+    //becos private need getter
+    public String arg1() {
+        return arg1;
+    }
+    private Computer(ComputerBuilder builder) {
+        this.arg1=builder.arg1;
+        this.arg2=builder.arg2;
+    }
+    
+    //Builder Class
+    public static class ComputerBuilder{
+        private String ...,...;
+
+        public ComputerBuilder(String ..., String ...){
+            this.arg1=arg1;
+            this.arg2=arg2;
+        }
+
+        public ComputerBuilder arg_true(boolean parent_true) {
+            this.arg_true = arg_true;
+            return this;
+        }
+        
+        public Computer build(){
+            return new Computer(this);
+        }
+    }
+}
+```
+
+
+# Code Example
+```java
+public class TestBuilderPattern {
+    public static void main(String[] args) {
+        //Using builder to get the object in a single line of code and 
+                //without any inconsistent state or arguments management issues        
+        Computer comp = new Computer.ComputerBuilder(
+                "arg1", "arg2").setarg1(true)
+                .setarg2(true).build();
+    }
+}
+```
+
+# Why Care?
+And will I ever use this? 
+
+# Make simple code first. Use complexity only when needed.
+“What they should be doing is examining the problem, writing the right code for the job and, if it happens to fit one of the existing patterns, saying "this turned out to be the X pattern" after the fact.” - Blrfl
