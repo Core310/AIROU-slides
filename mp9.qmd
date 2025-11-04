@@ -1,0 +1,37 @@
+---
+format: 
+  revealjs:
+    theme: night
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.0       # maximum scaling
+    title-slide: false
+    scrollable: true
+    transition: slide
+    background-transition: fade
+---
+
+
+
+# Currently 
+
+- Odom isn't working nicely, turning the robot doesn't corrospond to turning in rviz (its much less sensitive, which @param do I change for this?)
+- See f1tenth config setup guide for it
+
+# Sunday
+- Lidar issue was fixed 
+- SLAM node works (but it doesn't map due to false odometry)
+- Fixed some small git issues
+
+# Monday
+- Looked into robot_localization to use for slam tb (fuse imu with /scan instead of odom topic)
+- tested default vesc config file frm f1tenth
+- Reset the vesc again (it broke)
+- Fixed the f1tenth having a slight drift due to right wheel facing outward (apparently this is also an issue students are facing in the class)
+- Manually calculated the odom topic (This took pretty much the entire day)
+- Played with SLAM more, confirm its due to the odom drift error 
+- I found out that the leftmost wheel isnt working when slowly going foward
+
+see [here](https://photos.app.goo.gl/JGRytGVB3gW1uXLD8)
