@@ -1,0 +1,43 @@
+---
+format: 
+  revealjs:
+    theme: night
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.0       # maximum scaling
+    title-slide: false
+    scrollable: true
+    transition: slide
+    background-transition: fade
+    footer: "Arika k, arcpro_rl"
+---
+
+
+
+# This week arcpro_rl
+- Busy with recalibrating cars and school work
+- Cleaned up documentation for the robot, later to be published on [Quartz 4](https://quartz.jzhao.xyz/)
+
+# Hopefully done by next week:
+- Start refactoring old airou minicity docs to new ros2 docs.
+- Finish recalibrating cars and have working slam example. 
+
+
+# Current Issues 
+When making very short turns, the bot failes to localize. Likely due to steering_angle_to_servo_offset? 
+```yaml
+  ros__parameters:
+    # erpm (electrical rpm) = speed_to_erpm_gain * speed (meters / second) + speed_to_erpm_offset
+    speed_to_erpm_gain: 4571.5 #original erpm gain 4614
+    # Need to change for odom to be calc accurately?
+    speed_to_erpm_offset: 0.0
+
+    # servo value (0 to 1) =  steering_angle_to_servo_gain * steering angle (radians) + steering_angle_to_servo_offset
+    steering_angle_to_servo_gain: -1.0
+    #todo this prolly needs to be changed..
+    #I may need to change this??
+    steering_angle_to_servo_offset: 0.4705 #originally 4687
+    #higher = left, lower = right need .46
+```
