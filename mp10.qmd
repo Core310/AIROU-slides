@@ -1,0 +1,31 @@
+---
+format: 
+  revealjs:
+    theme: night
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.0       # maximum scaling
+    title-slide: false
+    scrollable: true
+    transition: slide
+    background-transition: fade
+---
+
+
+## Project updates
+- looking at papers and planning how to go foward now..
+- Am I doing sim only? 
+- sim2real issues? I assume will be handling that next sem?
+- Currently exploring different sim enviorments, was looking at:
+	- Pure gym with unity
+	- isacc gym
+- What is idea to feed the RL model?
+	- YOLO model to classify stop signs and read the text to ensure it says stop? (simple text model would stop any ANY stop words)
+	- Canny Edge to grab lane filling? (Or some UFLD)
+	- Or should it only use the RGB vision? 
+
+## general lab things
+- website fixed, alumni links fixed
+- tidied up documentation a little (but I would likely focus on this once I'm free of this RL model..)		- Unsure the sim2real issues performing on minicity versus the UFLD dataset
