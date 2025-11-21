@@ -1,0 +1,24 @@
+---
+format: 
+  revealjs:
+    theme: night
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.0       # maximum scaling
+    title-slide: false
+    scrollable: true
+    transition: slide
+    background-transition: fade
+    footer: "Arika k, arcpro_rl"
+---
+
+# This week
+- Mostly focused on exams
+- Looked into refactoring arcbot documentation and overall RL projcet (once finished) 
+	- Looking at [quartz](https://quartz.jzhao.xyz/features/Obsidian-compatibility#configuration) and [digital_garden](https://dg-docs.ole.dev/) for hosting
+	- super simple wiki links and editing, minimal setup to edit and easy navigation
+- Reconfigured some tailscale settings for lab mesh network
+- Started looking into sim2real with the RL project
+
