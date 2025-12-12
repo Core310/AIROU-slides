@@ -1,0 +1,53 @@
+---
+format: 
+  revealjs:
+    theme: night
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.5       # maximum scaling
+    title-slide: false
+    scrollable: true
+    transition: slide
+    background-transition: fade
+    footer: "Arika k, arcpro_rl"
+---
+
+# Arc_pro cars
+- We have a **new documentation page** for ROS2 projects [ARCPro Docs Home](https://airou-lab.github.io/arcpro_ros2_website/)
+	- refactoring the ROS1 page to come later
+	- Currently houses waypointing example and the reinforcement learning example
+- I've refactored the base repo for readability, along with docs, I've made the project into a polyrepo. See github [here](https://github.com/airou-lab/arcpro_system) 
+	- cars now come with odometry and lidar working
+	- each component is easily swappable within the repo, just clone the submodules you need!
+	
+# Arc_pro waypoint
+- **Nav2:** I played around a lot with Nav2, getting things setup, however the largest challenge was getting the twist to acakermann mssages to be compatible, as ackermann drive models weren't that common, and nav2 only accepted a certain message type for differentiable drive models. 
+- A lot of code had to be refacatored from Humble to Jazzy, there's a lot of issues when doing this (though luckily jazzy is the new LTS). 
+- loop closure with just the lidar is pretty bad, need to drive the robot quite slowly. 
+
+# Arc_pro rl
+- drive models matter a lot, even briding a drive model to a differernt one can mess up the sim2real transfer
+- If we had more states reading in, raw byte transfer via TCP would be a massive headache, use the built-in `DDS` middleware if we're using more sensors
+- sim2real is hard..
+
+
+# Papers I've read
+-  Gen2Sim, an interesting paper which many later papers built off of. It used LLMs for task and motion planning. Additionally, it generated sim objects, with their physical properties using these LLMs. 
+- [Code as Policies](https://code-as-policies.github.io/) (Google): a super interesting Language Model Programs for Embodied Control. Robotic arms performing tasks from natural langauges with sim2real examples. 
+
+# Things I've learnt
+- The website used quartz4, which is very simple to setup and treats the site like an obsidan vault but open sourced. 
+- I've read into the middleware for ROS2, `DDS`, which is what is used mainly for the  pub/sub modeling. We hope to use it in the future instead of raw byte data streams from TCP sockets
+- Backing up a unity sim in git style is *very hard*, instead, we opted to use a local file snapshot saver. We considered localhosting git LFS but ran into issues with it 
+- urdf sim models are hard to make! It's very time consuming.
+- Loop closure is hard without GNSS! However, this could also just be a car issue..
+
+# Goals for next semseter
+- implement irl model updates with manual reward control 
+- Hotswappable drive model type (differential,ackerman, swerve drive)
+- Refine the RL model to complete the course faster 
+- Test the model against untrained enviorments and at speeds
+- Start working on digital twin with real time virtual object insertion during run
+- overhaul sim enviorment from deprecated unity version
