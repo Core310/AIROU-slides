@@ -27,22 +27,56 @@ format:
 - A lot of code had to be refacatored from Humble to Jazzy, there's a lot of issues when doing this (though luckily jazzy is the new LTS). 
 - loop closure with just the lidar is pretty bad, need to drive the robot quite slowly. 
 
+## SLAM and Loop Closure 
+We use slam_toolbox with Ceres scan. Odom topic weight was reduced for loop closure. 
+
+Ceres scan: guess current pose, updates per each movement, computes most optimal match per move, outputs most likely pose. Likely need to change this method.
+
+We set very high loop closure distance and extremely low min distance and found it most optimal comapred to the base settings
+```yaml
+    do_loop_closing: true
+    loop_search_maximum_distance: 100.0  # (meters) How far to search for a loop closure.
+    minimum_travel_distance: 0.008        # (meters) Min distance robot must travel to add a new node.
+    minimum_travel_heading: 0.09
+```
+
+## Localization
+We use robot_localization, 15d state estimation ekf filter: 
+
+- (X,Y,Z,roll,pitch,yaw,X˙,Y˙,Z˙,roll˙,pitch˙,yaw˙,X¨,Y¨,Z¨)
+
+```yaml
+    odom0: /odom
+    odom0_config: [ false, false, false,
+                    false, false, false,
+                    true, true, false,
+                    false, false, true,
+                    false, false, false ]
+  # realsense imu..
+  imu0: /camera/camera/imu/sample
+  imu0_config: [ false, false, false,  # ignore position
+                 true, true, true,     # use orientation
+                 true, true, true ]     # use angular velocity
+```
+We adjusted the ekf filter to reduce the weight for our odom given it's issues with the turn angle output during short turn bursts
+
+
+
 # Arc_pro rl
 - drive models matter a lot, even briding a drive model to a differernt one can mess up the sim2real transfer
 - If we had more states reading in, raw byte transfer via TCP would be a massive headache, use the built-in `DDS` middleware if we're using more sensors
 - sim2real is hard..
 
+# Things I've learnt
+- Website used quartz4. Simple setup, treats the site like obsidan vault 
+- Read up middleware for ROS2, `DDS`, used mainly for pub/sub modeling. We hope to use it in the future instead of raw byte data streams from TCP sockets
+- Backing up a unity sim in git style is *very hard*, instead, we opted to use a local file snapshot saver. We considered localhosting git LFS but ran into issues with it 
+- Urdf sim models are hard to make! It's very time consuming.
+- Loop closure is hard without GNSS! Could also be car issue..
 
 # Papers I've read
 -  Gen2Sim, an interesting paper which many later papers built off of. It used LLMs for task and motion planning. Additionally, it generated sim objects, with their physical properties using these LLMs. 
 - [Code as Policies](https://code-as-policies.github.io/) (Google): a super interesting Language Model Programs for Embodied Control. Robotic arms performing tasks from natural langauges with sim2real examples. 
-
-# Things I've learnt
-- The website used quartz4, which is very simple to setup and treats the site like an obsidan vault but open sourced. 
-- I've read into the middleware for ROS2, `DDS`, which is what is used mainly for the  pub/sub modeling. We hope to use it in the future instead of raw byte data streams from TCP sockets
-- Backing up a unity sim in git style is *very hard*, instead, we opted to use a local file snapshot saver. We considered localhosting git LFS but ran into issues with it 
-- urdf sim models are hard to make! It's very time consuming.
-- Loop closure is hard without GNSS! However, this could also just be a car issue..
 
 # Goals for next semseter
 - implement irl model updates with manual reward control 
