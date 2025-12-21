@@ -1,0 +1,95 @@
+---
+title: "C S-3440 FA 25 Final Report"
+author: "Arika Khor"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+self_contained: true
+---
+
+
+
+# Project Goal
+Implementing reinforcement learning into our ARCPro cars using a sim2real pipeline, with dynamic real-world 
+
+# Issues faced
+Throughout the project, I had assumed many things would have either been easy to set up, or already setup for me. However, due to the robot's code being relatively new and the fact that Jazzy was surprisingly not supported for several of the libraries we used, it took much longer than expected to get the robot working.
+
+I plan to write a streamlined guide on the steps of setting up a robot fully from scratch over the break, as I found documentation to be a large part of this semester.
+
+## Setting up the robot:
+While I had the old documentation to go off of for ROS1 of the arcpro and the current repo for the ROS2 version, both were fairly convoluted and did not provide much documentation in the way of explaining what any of the folders or files did. Hence, while I decided to go along the longer route to completely rewrite the entire ROS2 code base so I could get the odometry and lidar working properly, it came at the cost of vastly increasing the project's completion time. 
+You can see the first-time setup guide [here](https://airou-lab.github.io/arcpro_ros2_website/)
+
+### Vesc Bricking
+During the refactoring phase of the robot, when I tried to plug the original ROS2 code to be used in the current robot, I somehow bricked the VESC. This took about a week to fix, and a lot of work, but in the end, I just needed to find the correct Vesc version and correctly short two pins in order to set it into the bootloader mode. See [here](https://airou-lab.github.io/arcpro_ros2_website/initial-setup/VESC-aka-FSEC) for the page I made on how to unbrick the VESC.
+
+# Completed Items
+While I wasn't able to complete my original research objective this semester, I still managed to get a fair bit done that I'm proud of. In particular, setting up the new documentation website with the automated push pipeline, a waypointer example for the robot, and the bridge node for the sim2real pipeline. 
+
+## Quartz4: New Documentation for the arcpro
+While working on the robot setup, and going off some great documentation and not-so-great ones, I discovered [this](https://stevengong.co/notes/Robotics) interesting website, which was based on an Obsidian vault. It used the [quartz4](https://quartz.jzhao.xyz/), a simple [obsidan](https://obsidian.md/) to website converter. However, it didn't fully parse the built-in markdown, and I had to do some basic configuration for it. However, setting the actual website up proved to be extremely easy, and will likely be my future website updates via a GitHub Actions deploy.yaml file. 
+
+## arcpro_wp: Waypointer and robot setup
+One of the sub-goals, which took much longer than expected due to the previously mentioned robot not being set up correctly, was a simple waypointer in the minicity. I used a barebones nav2 setup stack, feeding in the lidar /scan topic for the SLAM generation, though I used a custom localisation node, [robot_localization](https://github.com/cra-ros-pkg/robot_localization). Overall, the setup followed a quite normal nav2 setup, though I did have some issues with getting the full stack working. I plan to cover that in another wiki page, though I will need time to comb through all the code again to see the changes I made. 
+
+You can see the overview of the SLAM example working (and failing to close the loop) here: https://photos.app.goo.gl/CjkUmKZwPcP5E9FU8.
+
+It's a fairly simple example, but I'm also hoping to import a URDF model and, by chance, extend it to a 3d voxel model, which shouldn't prove too hard.
+
+## arcpro_rl: TCP Bridge node
+The bridge node is currently quite simple, providing a connection between the ROS2 interface and the Unity RL sim model. Sadly, I haven't written a page for it just yet, given that we want to refactor our messaging system to handle the ROS2 DDS messages instead of using our raw TCP sockets. However, given that there may be some latency benefits, I will make a short page on it with some of our example code over the break. 
+
+You can see the code here: 
+https://github.com/airou-lab/arc_rl_interface/blob/main/bridge/bridge/ros_to_tcp_bridge.py
+
+Of note is the `run_tcp_server` function:
+We waited for the agent to send a command, which could be either 1 or 8 bytes. From there, we can parse the data, given we're only expecting an RGB camera message or a reset message. The drive commands are handled via the `publish_command`  method, using the Ackermann drive bridge I created (in the same folder). However, I likely need to manually tune the turn arguments on it once we've fixed the actual drive model. 
+
+# Plans for winter
+I have two item groups I'm hoping to get out of the way during the winter. Most of the items on my list are cleanup, as I'm not happy with all that I've documented this semester, refactoring, to make it even easier for future projects to use the robot software stack I've compiled, and focusing on the arcpro_rl project. 
+
+## Cleaning/Tidying Current Projects
+1) Tidy and add more documentation pages. 
+	1) I want to go over the files that I edited and the issues I ran into, making it easy for anyone in the class to search the FAQ area. Additionally, I'm hoping to ask some of the previous year's students about the issues they faced during the setup. 
+2) I want to build up my personal robotics repo with more pages of things I've learnt, like how [this](https://stevengong.co/notes/Robotics) person does it. I currently only have a few pages, but I hope to publish those folders in a separate project website once it's matured more
+	1) I'm hoping to cover topics such as Kalman filters, particle filters, defining drive types (Ackermann, differentiable, omnidirectional) and many other things like in this [page](https://stevengong.co/notes/F1TENTH). 
+
+## Reading and Improving Current Projects
+0) arcpro_rl:
+	1) Look at fixing our drive model
+	2) Start researching the real-to-sim pipeline to update the model per real-world run
+1) Improve the ArcPro waypointer example. 
+	1) Apparently, the SLAM package I used alongside nav2 can generate the lane detection during its mapping phase. It would be interesting to explore this option and see how well it manages itself. 
+2) Find out what's causing the loop closure issue.
+	1) We (Daniel P and I) learnt how to heavily mitigate it, but not the issue itself. We suspect it's due to our lidar, though I will have to look into it more.
+
+# Tentative Timeline for next semester
+
+## Jan
+- Fix the robot drive model
+- Get the RL model to publish drive commands correctly
+- Start working on real-sim training pipeline (requires large refactor)
+- 
+## Feb
+- Test & Debug RL model, focus on lane keeping features and when lanes aren't well defined 
+- Finish real-sim training pipeline, start running and seeing how it performs. 
+- 
+## March
+- Test the RL model with a focus on non-lane-keeping features (stop sign, object detection, intersections)
+- generate a simple ui for real-sim and overall RL model for real-time analysis 
+	- Manual reward assignment and episode start/stop
+	- live graph view of model 
+	- Path generation and other statistics
+- Extend the RL model to take in other sensors if not too hard
+- 
+## April
+- Continue on any other UI needs
+- Test the RL model in unknown environments
+
+# Project resources
+- [new documentation site](https://airou-lab.github.io/arcpro_ros2_website/)
+	- [github for documentation site](https://github.com/airou-lab/arcpro_ros2_website)
+- [arcpro_system github](https://github.com/airou-lab/arcpro_system)
