@@ -14,24 +14,161 @@ format:
 ---
 
 
+# FNR: Facial-Net Recognizer
+- Real-Time Biometric Surveillance & Privacy Awareness
 
-# Currently 
+- **Hackathon Submission 2026**
 
-- Odom isn't working nicely, turning the robot doesn't corrospond to turning in rviz (its much less sensitive, which @param do I change for this?)
-- See f1tenth config setup guide for it
+## Inspiration
 
-# Sunday
-- Lidar issue was fixed 
-- SLAM node works (but it doesn't map due to false odometry)
-- Fixed some small git issues
+> "The gap between open source code and a surveillance state is terrifyingly small."
 
-# Monday
-- Looked into robot_localization to use for slam tb (fuse imu with /scan instead of odom topic)
-- tested default vesc config file frm f1tenth
-- Reset the vesc again (it broke)
-- Fixed the f1tenth having a slight drift due to right wheel facing outward (apparently this is also an issue students are facing in the class)
-- Manually calculated the odom topic (This took pretty much the entire day)
-- Played with SLAM more, confirm its due to the odom drift error 
-- I found out that the leftmost wheel isnt working when slowly going foward
+- **The Reality:** Facial recognition isn't just for governments anymore.
+    
+- **The Experiment:** Can we link real-world faces to online identities (LinkedIn/Devpost) in real-time?
+    
+- **The Goal:** Demonstrate how easily public data can be weaponized using standard, open-source tools.
+    
 
-see [here](https://photos.app.goo.gl/JGRytGVB3gW1uXLD8)
+
+
+## What It Does
+
+- **Real-Time Tracking:** Detects and tracks faces in 3D space using a ZED 2 Stereo Camera.
+    
+- **Instant Identification:** Matches faces against a scraped database of attendees.
+    
+- **Dynamic Learning:** "Learns" unknown people as they move, building a robust profile from multiple angles.
+    
+- **"God Mode" Dashboard:** Allows operators to merge identities and train the AI on the fly.
+    
+
+
+
+## The Tech Stack
+
+|**Component**|**Technology**|**Purpose**|
+|---|---|---|
+|**Eyes**|**ZED 2i**|Depth sensing, 3D tracking, Anti-spoofing|
+|**Brain**|**InsightFace**|ArcFace model for 512-d vector extraction|
+|**Enhancer**|**GFPGAN**|Generative Super-Resolution for blurry faces|
+|**Memory**|**MongoDB**|Vector storage and thumbnail management|
+|**Control**|**Streamlit**|Human-in-the-loop training dashboard|
+|**Nerves**|**Flask**|Video streaming backend|
+
+
+## Architecture: The "Eager AI" Problem
+
+We had to stop the model from registering every slight angle change as a new person.
+
+**Solution:** A strict `SmartFaceDB` class with blur checks and pose guards.
+
+Python
+
+```python
+class SmartFaceDB:
+    def find_match(self, new_embedding):
+        # 1. Refresh Cache
+        self.refresh_local_cache()
+        new_norm = new_embedding / norm(new_embedding)
+        
+        # 2. Vector Search (Cosine Similarity)
+        best_score = -1
+        for face in self.known_faces:
+            score = np.dot(new_norm, face['embedding'])
+            if score > best_score:
+                best_score = score
+                best_match = face
+
+        # 3. Threshold Logic
+        if best_score > SIMILARITY_THRESHOLD:
+            return best_match['name'], best_score
+        
+        return None, best_score # Unknown
+```
+
+
+
+## The "Merge" Workflow
+
+We built a custom dashboard to "teach" the AI. If `Person_5` (Side View) is actually `Arika`, we just merge them.
+
+**Code Snippet: Streamlit Dashboard Logic**
+
+Python
+
+```python
+# dashboard.py
+
+st.sidebar.header("🛠️ Merge Tool")
+merge_targets = st.sidebar.multiselect("Select identities:", unique_names)
+target_name = st.sidebar.text_input("Merge into Name:", placeholder="e.g. Arika")
+
+if st.sidebar.button("Merge Selected"):
+    # Mass update in MongoDB
+    result = collection.update_many(
+        {"name": {"$in": merge_targets}},
+        {"$set": {"name": target_name}}
+    )
+    st.sidebar.success(f"✅ Merged {result.modified_count} vectors!")
+```
+
+
+
+## Challenges Faced
+
+- **The "Jittery" Face:** Users turning heads caused rapid-fire false positives. Solved with a **Temporal Voting System** (buffer of last 10 frames).
+    
+- **Distance & Blur:** Faces >2m away were too pixelated.
+    
+    - _Fix:_ Piped crops through **GFPGAN** to "hallucinate" high-res details.
+        
+- **Liveness:** Photos on phones fooled the 2D check.
+    
+    - _Fix:_ Used ZED **3D Skeleton Tracking** to ensure faces were attached to physical bodies.
+        
+
+
+
+## Real-Time Super Resolution
+
+We integrate generative AI directly into the video pipeline.
+
+Python
+
+```python
+# main.py - Super Resolution Logic
+
+if face_width < 60 or distance > 2.0:
+    # "Hallucinate" a better face
+    restored_face = enhancer.enhance(frame_bgr, box)
+    
+    if restored_face is not None:
+        # Re-run detection on the high-res crop
+        results_high_res = app.get(restored_face)
+        if len(results_high_res) > 0:
+            embedding_to_use = results_high_res[0].embedding
+```
+
+
+
+## What We Learned
+
+1. **Vector Search is Powerful:** Your face is just a list of 512 numbers. 
+    
+2. **Privacy isn't quite dead!:** Even though our model was far from accurate, and that government level models will be much more accurate, there's still plenty ways to trick them! Lighting, makeup, distance, and many other factors make this technology a good *guess* at best and random at worst. 
+    
+3. **Hardware Matters:** The ZED 2i's depth sensing was critical for filtering out "noise" (posters, screens). Post processing too ka while.
+
+4. **Streaming**: Originally, we wanted to stream the camera through a pi zero, jetson orion nano, or nuc. With the zed2i being used, this made it so we would need to use the orion nano (as it requires a device which can run Jetpack). If we had an orion nano, the plan would've been to stream the zed2i stream via TCP & Tailscale and have the bulk of the processing power on the PC. 
+    
+
+
+
+## What's Next?
+
+- **Adversarial Defense:** Researching "poisoned" makeup patterns to break these exact models.
+    
+- **Profile Views:** Improving the "Frontalization" pipeline for 90-degree head turns.
+    
+- **Cloud Scale:** Moving from local MongoDB to a distributed vector database (Milvus/Pinecone).
