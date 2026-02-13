@@ -1,0 +1,138 @@
+---
+format: 
+  revealjs:
+    theme: night
+    slide-number: true
+    width: 1700
+    height: 1000
+    min-scale: 0.8       ## minimum scaling
+    max-scale: 1.5       ## maximum scaling
+    title-slide: true
+    scrollable: true
+    transition: slide
+    background-transition: fade
+    footer: "AIROU, Arcpro_rl: Arika & Aaron "
+    title: "ARCPro RL"
+---
+ 
+## Baseline Project Goal
+We want a self-driving car that navigates using only what a camera can see in a similar way to a human driver following road markings and listening to directions saying "turn left up ahead" without being told exact coordinates.
+
+- Baseline: Implementing an RGB camera only RL based self driving car 
+	- Extension: Possibly implement DepthAnything V3 into the model later on to determine stopping distance
+	- Extension: Digital twin: Scan out entire area with coloured pc2 map. We then go in with a manual mesh program to build each structure and everything else. From there we can import into onshape to tidy up and finally isacc sim. This is used with Omniverse Replicator.
+	* zed2i coloured pc2of MiniCity (Zed 2i) →  Isaac Sim
+	* Domain Randomization in Isaac Sim
+
+## Use case and Policy I/o
+- Use case:
+	- To be integrated with the ARCPro General System as a package
+	- Eventually uplift the model to a more robust real world vehicle.
+- Policy I/O 
+	* Receives: RGB camera image, a turn command (`turn_bias`), speed, yaw_rate
+	* Doesn't receive: position, goal distance, goal angle, lane center offset
+	* If the real robot can't produce the signal, the policy shouldn't train on it
+
+## Quick Description of each sim:
+- **Unity**: Game engine but little support for robotics. Must build yourself each plugin. 
+- **CARLA**: Dedicated simulator built on top of Unreal Engine. Lots of pre-built sensors and maps, but hard to generate your own and not well maintained.
+- **Isacc Sim**: Extremely accurate simulator built for translating a model to Sim2Real. Well maintained. Only sim where physics engine runs on GPU instead of CPU.
+- **Gazebo**: Lightweight simulator usually used alongside ROS2 examples. Generally used more as a proof of concept to teach, not good for Sim2Real.
+
+## Deciding which Simulator to use
+With both Carla and Isacc Sim, I tried first to work them in a docker container and expose locally a gui to work on. However, I ran into several issues doing so and dropped that later on.
+
+## Unity
+* Ran into issues with versioning and ROS2 pipelining (it worked, but with some issues).
+* Using an extremely deprecated version of Unity; encountered significant issues when trying to upgrade. Would require a complete rewrite to uplift to a new version.
+* Major version control issues. Large world files pushed for the use of the paid Unity VSC. Ended up using Git LFS, but it remained sub-optimal.
+
+## Carla
+* Experimental version on Ubuntu 24.04, but stable on 22.04.
+* Did not support ROS2 Jazzy; however, given the architecture, that wouldn't have been a major issue.
+* While it could run in a Docker container, we eventually scrapped Carla due to Ubuntu version support, CPU-only processing for the physics engine, outdated ROSbridge support, and difficulty implementing a custom drive track.
+
+## Isaac
+* Originally ran into issues with it running on the CPU, causing significant lag until the GPU issue was fixed (required a version downgrade).
+* Much nicer ROS2 simulator with a graph view. Easier to generate terrain via Python or the GUI. 
+* Ability to configure simulator settings specifically for rendering. 
+* The headless Isaac Sim version can work in theory but requires the NVIDIA Omniverse connector; decided not to pursue this.
+## Quick Comparison of each simulator
+Overall, Isacc Sim comes in the best to use but requires high end hardware. Gazebo is really nice if hardware is limited and looking for proof of concept. Both Unity and Carla fit in a more niche tier if hardware is limited but sim2real is a real consideration. 
+
+| **Feature**               | **Unity**                      | **CARLA**                       | **NVIDIA Isaac Sim**                  | **Gazebo (Harmonic)**                           |
+| ------------------------- | ------------------------------ | ------------------------------- | ------------------------------------- | ----------------------------------------------- |
+| **Primary Use**           | Game Engine                    | Mainly Autonomous Driving       | General Robotics + self dirving       | General Robotics, Research side                 |
+| **Rendering Engine**      | B tier HDRP/URP                | A Tier: UE 4 (5 is buggy)       | S tier: RTX                           | B Tier: Ogre / Qt Quick                         |
+| **Physics Engine**        | B Tier: PhysX                  | B+ Tier: Chaos / PhysX          | S TIer: PhysX 5                       | B Tier: Dart / Bullet / ODE                     |
+| **Visual Quality**        | A Tier                         | A Tier (about as same as Unity) | S Tier, extremely realistic           | Very basic                                      |
+| **Language**              | C##                             | Python                          | Python + Graph vis                    | C++ / Python                                    |
+| **ROS2 Connectors**       | OK, outdated but works fine    | Same as unity                   | Amazing                               | Native more stable than Nvida but less feautres |
+| **Assets/Maps**           | A Tier lots but OK qu          | C Tier: Some pre-built          | S Tier lots very high quality         | A Tier lots                                     |
+| **Hardware requirements** | Low (we were running on a mac) | Fairly high (need OK GPU)       | *Extremely high* recommended RTX 4080 | Low (same as unity)                             |
+| **Ubuntu versions**       | 24 and 22                      | 22 (main bad part)              | 24 and 22                             | 24 and 22                                       |
+
+## Importing the robot & Connecting to ROS2
+- Used a URDF importer along with the mushr robot. 
+- Then resized mushr specs to fit ARCPros
+- ROS2 connectors used with Action Graphs
+
+
+## Connecting ROS2 Topics
+![](https://i.imgur.com/uAsr1BH.png)
+
+## Finished robot!
+![](https://i.imgur.com/4aWiGNl.png)
+![](https://i.imgur.com/V1JItk7.png)
+
+## example of pre-built city in isacc
+![](https://i.imgur.com/BQ3JXg2.png) 
+
+## Misc Project Items & Ending notes
+- For remoting in, we use *tailscale* as our meshnet and *rustDesk* as our VNC
+- Quartz4 (our wiki hosting platform) has themes! I applied a more simple one but there's a lot of cool ones to chose.
+- Documentation site found here [https://airou-lab.github.io/general_wiki_website/](https://airou-lab.github.io/general_wiki_website/) or on our website (clicking the docs button)
+
+## Policy Architecture
+- Hierarchical CNN + LSTM trained with PPO.
+- Two heads: one plans where to go, the other drives there.
+
+## Pipeline
+Camera(128x128, but can change to any hardcoded ratio i.e. 1920x1080 - RGB) → concat with \[turn_bias, speed, yaw_rate, last_actions\] → LSTM Memory → splits into Waypoint Head (5 future positions) and Control Head (steer, throttle, brake)
+
+* CNN extracts visual features (road, edges, lane markings, free space)
+* LSTM carries temporal context across time steps
+* Waypoint Head predicts 5 future positions via self-supervised learning - uses kinematic anchors so the network learns trajectory corrections, not raw positions.
+* Control Head takes LSTM features + waypoints → outputs driving commands
+* Separating planning from control offers interpretability of predicted paths along with better action credit assignment per waypoint.
+
+## Computer Vision Reward
+- The reward function needs to measure lane-keeping quality without using simulator-only geometry. I've written a separate **lane detection** module which computes this from the camera image for reward computation only.
+- The camera image is shared between two separate systems: the **policy** which learns to drive and the **lane detector** which computes reward.
+- The lane detector's output feeds into the reward function  the agent never sees it directly
+
+## Two approaches
+Plan: start with Classic CV to get the pipeline working, and then bring in UFLD.
+
+- **Classical CV** (Canny edge + Hough transform) - simple baseline to validate the reward pipeline
+- **UFLD** (Ultra-Fast Lane Detection) - trained neural net, more robust for real world application.
+
+## Isaac Sim Training Pipeline
+- **Native ROS2** - same topics in simulation and on the robot ([/camera/image_raw, /ackermann_cmd, /vehicle_state)]
+- **MiniCity Environment** - built in Onshape → USD (Universal Scene Descriptor) → Isaac Sim with physics and camera sensors
+- **Key Files:**
+	* `isaac_ros2_env.py` - Gymnasium wrapper over ROS2 topics ✓ - Completed
+	* `train_policy_ros2.py` - training entrypoint with TensorBoard ☐ - This still needs to be ported from our Unity version.
+	* `inference_server_ros2.py` - runs identically in sim and on the robot  (a bridge for our model) ☐ - This also still needs to be ported.
+	* `diagnose_isaac_ros2.py` - verifies ROS2 connectivity before training (topics and subscriptions are accessible). ☐ - This will be a new file
+
+## Future Direction
+- **Arika**: Focus on **implementation side** of things.  Main point of divergence is during gui phase, however, both parts of the project will be closely linked throughout. 
+- **Aaron**: Focus on generating and updating the policy as needed, looking at the more **theoritical side**. 
+
+## Future papers to look into
+- **DAVE-2 Baseline** - implement a simple behavioral cloning CNN (inspired by dave2net-carla) as a comparison point to validate whether the hierarchical RL architecture's added complexity is justified. - dave2net-carla (Github)
+- **Lane Detection Pipeline** - Adapt the opencv-lane-detection project's perspective transform, thresholding, and polynomial; fitting approach to our camera setup for computing visual reward signals. - opencv-lane-detection (Github)
+``
+Additional considerations:
+ - **DepthAnything V3** implementation - monocular depth for stopping distance awareness.
