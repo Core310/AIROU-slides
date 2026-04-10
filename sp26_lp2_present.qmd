@@ -1,0 +1,226 @@
+---
+format: 
+  revealjs:
+    theme: night
+    slide-number: true
+    width: 1600
+    height: 720
+    min-scale: 0.2       # minimum scaling
+    max-scale: 1.5       # maximum scaling
+    title-slide: false
+    scrollable: true
+    transition: slide
+    background-transition: fade
+    footer: "Arika Khor, Aaron Hamil, AIROU, April 2026"
+---
+
+
+# IsaacLab Lane Follower
+
+Autonomous Navigation in NVIDIA Isaac Sim
+
+Arika Khor | AIROU  
+10 Feb – April 2026
+
+
+
+# Recap of project:
+
+Self driving ARCPRO with:
+
+- Basic lane following feature
+- Intersection based navigation via manual turn input commands, or via pre determined route.
+  - "Traffic" at each intersection simulated via multiple vehicle agents at one intersection (TBD) 
+- Variable lighting conditions (TBD)
+
+
+
+# Issues, Fixes, and Incompletes
+
+- Robot in in next few slides currently much more simplifed model. Had a lot of issues with join and springs being modeled
+  - Likely need to create our own which will take a bit more time.
+  - Mushr and f1tenth models built for much older system and not that compatible with ROS2 jazzy. 
+    - Mushr for ROS1 
+    - F1tenth for old ROS2 versions
+  - Both likely find in gazebo but not isaac :(
+
+
+
+## Vision Normalization issues and Saved Learning
+
+- Issue: Virtual training camera fed raw world cords into policy trained on normalized observations
+  - Basically meant that both were seeing different things. (Forgot to normalize on my part took a while..)
+- Fixed with neat function called `SaveVecNormalizeCallback`
+- Periodic saves of `vec_normalize.pkl` (per 10,0000 steps)
+  - We can load models at given steps and retrain it from any given checkpoint.
+  - Did this when I calculated the centre line wrong but wanted to original policy to transfer  over
+
+```python
+env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.) 
+...
+```
+
+
+
+## Action Space Issues
+
+- 2 steer, 4 drive too complex for early learning (given mainly debugging sim<->policy issues)
+- Used: `GroupedJointAction`
+  - Grouped L/R Steering then gave 4-wheel throttle control
+  - Resulted in AWD car and faster (hopefully) convergence
+- Means will need to retrain in FWD once car is stable
+
+
+
+## Training
+
+- FPS: Training at ~17 FPS
+- Training in parallel: 
+  - Had example running with 3 simulations, however ran into several issues with CUDA + enviorment itself
+    - On hold for now with only one simulation running
+    - Something to come back to later..
+
+
+
+## Too Extreme Movement
+
+- Robot kept doing either or extreme due to bad weight balancing
+  - either kept killing itself by driving straight out of the lane, keeping reward a minimum
+  - "moved" back/foward to say it's moving and therefore keeping the speed reward high enough while staying alive
+- When finally managed to balance above points, found out lane centreing was off and didn't terminate where I wanted it to.
+- Kept having issue with robot only terminating when back left wheel hit white line, still unsure of fix
+
+
+
+## Future
+
+- Route planning for intersections
+- Implement Hierarchical `Worker-Driver` policy architecture
+- Better lane termination
+- Need some way to 
+- Document everything on the AIROU wiki! 
+  - (All of you should be allowed to edit the wiki if wish to add own projects)
+
+
+
+## Resizing (special note for future)
+
+- Resizing the entire enviorment wasn't as simple as I thought for pretty much everything.
+  - Originally downsized entire mesh to robot size
+  - Plan to just extract all the lane material instead of getting hung up on tile 
+- Will be generating digital twin of minicity after first phase of project is done.
+  - Plan to use zed2i coloured pointcloud to generate all lane meshes to train on
+
+
+
+# Misc items
+
+- Played more with hyprland, ansible, and symlinks
+- Ansible repo now has the following:
+  - Several "roles" for sever or desktop setup
+  - Desktop has synced hyprland config settings so I get consistent gui
+  - Terminals come preinstalled with ohmyzsh, and synced (via git) zshrc config for the same aliases across all systems
+- Slides were made using [reveal.js](https://revealjs.com/) and [reveal-md](https://github.com/webpro/reveal-md)
+  - Allowed to just write markdown and render to slides with a few given rules. Then published onto github pages
+- ARCPRO Car persist issue with professor NUC causing the buc converter to trip (or something)
+  - Results in nuc losing power after only a few minutes of operation
+  - Still diagnosing issue, but been busy with this project.. 
+  - Also need to uplift all ARCPROs to new arcpro_system repo that I made. 
+  - Likely to be done via ansible file rollout.
+
+
+
+# ARCPro: Passive Visual Protocol
+ 
+**Hierarchical Reinforcement Learning for Vision-Only Autonomous Intersection Navigation**
+ 
+## Project Overview & The PVP
+ 
+The goal is to get an F1TENTH car to navigate intersections using nothing but a front-facing camera.
+
+
+ 
+The Passive Visual Protocol is how we enforce that. Signals like GPS, lane geometry, and path curvature are available in the simulator, but we deliberately zero them out in the observation vector. The policy only receives pixels and basic vehicle state. Lane detection still runs under the hood for computing rewards and detecting when the car leaves the road, but those values never make it into what the agent actually sees.
+
+
+ 
+The reason this matters for sim-to-real is straightforward: if the agent never trains on signals that don't exist on the real robot, there's nothing to break when we deploy. The observation is the same in both places. We're targeting the MiniCity setup in the lab, which has a couple 4-way and 3-way intersections with modular buildings.
+
+
+ 
+What the agent gets each step:
+ 
+- A 160×90 RGB image (D435i camera, downsampled)
+- A 12-element telemetry vector: 8 slots are active (speed, yaw rate, last action, turn token, go/stop signal, cumulative distance) and 4 are zeroed out for PVP (goal distance, lateral offset, lane confidence, curvature)
+ 
+
+ 
+## Hierarchical Architecture
+ 
+The core idea is splitting "where to go" from "how to drive."
+
+
+ 
+The Worker is a classical planner, no learning involved. It sits on top of an intersection graph and watches the car's position. When the car approaches an intersection, the Worker checks what exits are available based on heading, picks a turn, and commits to it. It has three states: cruising, deciding, and committed. Once it picks a direction it holds that decision until the car clears the intersection. For training I can set it to follow a fixed route, sample randomly, or run a curriculum that biases toward going straight early on and adds more turns over time.
+
+
+ 
+The Driver is the learned part. A CNN processes the camera image, fuses it with the telemetry vector, and feeds everything into an LSTM. From there the flow is sequential: the Planning Head takes the LSTM output and predicts small corrections on top of kinematic anchor curves that come from the Worker's turn command blended with current steering. It's initialized near zero so early in training the car just follows the anchors and gradually learns to adjust. Then the Control Head takes the LSTM output concatenated with the planned waypoints and outputs steering, throttle, and brake. The control decisions are conditioned on what the planner decided.
+
+
+ 
+For deployment, a Topological EKF tracks position along graph edges in Frenet coordinates with drift resets at each intersection. This way the Worker doesn't need GPS or global coordinates to know when the car reaches an intersection.
+
+
+ 
+The training environment talks directly to the Omniverse Python API (60Hz physics, 30Hz rendering, 10Hz policy). ROS2 is only used at deployment.
+ 
+
+ 
+# Key Progress Since February
+ 
+**ROS2 decoupled from training.** The environment now goes straight through PhysX and Replicator. No more middleware overhead or nondeterministic message timing.
+
+
+ 
+**Worker-Driver architecture.** The old approach was injecting a random float for turn direction with no awareness of road structure. Now the Worker queries an intersection graph, picks a real turn, and injects a discrete token into the observation. There's also a safety gate that overrides throttle if the Scheduler says to stop.
+
+
+ 
+**PVP enforcement.** I found during a code review that lane detection values were being written directly to the observation vector. The policy could have learned to lean on lateral offset instead of actually learning from the camera. Fixed it by keeping lane detection internal to the environment and zeroing those observation slots.
+
+
+ 
+**Episode termination.** The environment was hardcoding terminated=False, meaning episodes never ended early. The car could drive off the road and just sit there accumulating negative reward. I added stuck detection, off-road detection using internal lane confidence, and fall detection so the agent gets a clear signal when something goes wrong.
+
+
+ 
+**DAVE-2 baseline.** I built out the full pipeline for the 2016 NVIDIA behavioral cloning CNN: data collection, dataset with augmentation, and training. It's ready to run as the ablation comparison against our hierarchical approach.
+
+
+ 
+**Multi-simulator registry.** A factory pattern lets training scripts switch between Isaac Sim and Gazebo through config with lazy imports. The Gazebo environment is written and import-tested with gz-transport bindings I built from source.
+ 
+
+ 
+# Next Steps
+ 
+**Immediate:**
+ 
+- Get the first clean training run going with termination, the Worker, and kinematic anchors all running together
+- Align the observation contract between the policy and sim repos so they can actually train together
+- Collect driving data and train the DAVE-2 baseline for ablation
+ 
+
+
+**Near-term:**
+ 
+- Merge the factory registry and build one training script that works across simulators
+- Compare training curves between Isaac Sim and Gazebo to see if the policy generalizes across renderers
+ 
+
+
+**Longer-term:**
+ 
+- Put the trained policy on the real F1TENTH in MiniCity
+- Zero-shot sim-to-real transfer
