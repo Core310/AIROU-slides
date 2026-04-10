@@ -179,48 +179,45 @@ The training environment talks directly to the Omniverse Python API (60Hz physic
  
 # Key Progress Since February
  
-**ROS2 decoupled from training.** The environment now goes straight through PhysX and Replicator. No more middleware overhead or nondeterministic message timing.
+- **ROS2 decoupled from training.** The environment now goes straight through PhysX and Replicator. No more middleware overhead or nondeterministic message timing.
+
+
+- **Worker-Driver architecture.** The old approach was injecting a random float for turn direction with no awareness of road structure. Now the Worker queries an intersection graph, picks a real turn, and injects a discrete token into the observation. There's also a safety gate that overrides throttle if the Scheduler says to stop.
+ 
+- **PVP enforcement.** I found during a code review that lane detection values were being written directly to the observation vector. The policy could have learned to lean on lateral offset instead of actually learning from the camera. Fixed it by keeping lane detection internal to the environment and zeroing those observation slots.
 
 
  
-**Worker-Driver architecture.** The old approach was injecting a random float for turn direction with no awareness of road structure. Now the Worker queries an intersection graph, picks a real turn, and injects a discrete token into the observation. There's also a safety gate that overrides throttle if the Scheduler says to stop.
+- **Episode termination.** The environment was hardcoding terminated=False, meaning episodes never ended early. The car could drive off the road and just sit there accumulating negative reward. I added stuck detection, off-road detection using internal lane confidence, and fall detection so the agent gets a clear signal when something goes wrong.
 
 
  
-**PVP enforcement.** I found during a code review that lane detection values were being written directly to the observation vector. The policy could have learned to lean on lateral offset instead of actually learning from the camera. Fixed it by keeping lane detection internal to the environment and zeroing those observation slots.
+- **DAVE-2 baseline.** I built out the full pipeline for the 2016 NVIDIA behavioral cloning CNN: data collection, dataset with augmentation, and training. It's ready to run as the ablation comparison against our hierarchical approach.
 
 
  
-**Episode termination.** The environment was hardcoding terminated=False, meaning episodes never ended early. The car could drive off the road and just sit there accumulating negative reward. I added stuck detection, off-road detection using internal lane confidence, and fall detection so the agent gets a clear signal when something goes wrong.
-
-
- 
-**DAVE-2 baseline.** I built out the full pipeline for the 2016 NVIDIA behavioral cloning CNN: data collection, dataset with augmentation, and training. It's ready to run as the ablation comparison against our hierarchical approach.
-
-
- 
-**Multi-simulator registry.** A factory pattern lets training scripts switch between Isaac Sim and Gazebo through config with lazy imports. The Gazebo environment is written and import-tested with gz-transport bindings I built from source.
+- **Multi-simulator registry.** A factory pattern lets training scripts switch between Isaac Sim and Gazebo through config with lazy imports. The Gazebo environment is written and import-tested with gz-transport bindings I built from source.
  
 
  
 # Next Steps
  
-**Immediate:**
+- **Immediate:**
  
-- Get the first clean training run going with termination, the Worker, and kinematic anchors all running together
-- Align the observation contract between the policy and sim repos so they can actually train together
-- Collect driving data and train the DAVE-2 baseline for ablation
- 
-
-
-**Near-term:**
- 
-- Merge the factory registry and build one training script that works across simulators
-- Compare training curves between Isaac Sim and Gazebo to see if the policy generalizes across renderers
+  - Get the first clean training run going with termination, the Worker, and kinematic anchors all running together
+  - Align the observation contract between the policy and sim repos so they can actually train together
+  - Collect driving data and train the DAVE-2 baseline for ablation
  
 
 
-**Longer-term:**
+- **Near-term:**
  
-- Put the trained policy on the real F1TENTH in MiniCity
-- Zero-shot sim-to-real transfer
+  - Merge the factory registry and build one training script that works across simulators
+  - Compare training curves between Isaac Sim and Gazebo to see if the policy generalizes across renderers
+ 
+
+
+- **Longer-term:**
+ 
+  - Put the trained policy on the real F1TENTH in MiniCity
+  - Zero-shot sim-to-real transfer
