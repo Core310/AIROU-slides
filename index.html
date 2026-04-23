@@ -1,0 +1,40 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AIROU Slides Index</title>
+    <style>
+        body {
+            font-family: "Proxima Nova", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 40px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        {% for file in site.static_files %}
+            {% if file.extname == ".html" %}
+                {% unless file.path contains "/trash/" %}
+                    <li><a href="{{ file.path | relative_url }}">{{ file.path | remove_first: "/" }}</a></li>
+                {% endunless %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+</body>
+</html>
