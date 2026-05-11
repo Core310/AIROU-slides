@@ -1,40 +1,1809 @@
----
----
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>AIROU Slides Index</title>
-    <style>
-        body {
-            font-family: "Proxima Nova", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            padding: 40px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        a {
-            text-decoration: none;
-            color: black;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDN Course: HPC & Networking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --color-accent:       #D94F30;
+      --color-accent-hover: #C4432A;
+      --color-accent-light: #FDEEE9;
+      --color-accent-muted: #E8836C;
+    }
+  </style>
+  <script src="main.js" defer></script>
 </head>
 <body>
-    <ul>
-        {% for file in site.static_files %}
-            {% if file.extname == ".html" %}
-                {% unless file.path contains "/trash/" %}
-                    <li><a href="{{ file.path | relative_url }}">{{ file.path | remove_first: "/" }}</a></li>
-                {% endunless %}
-            {% endif %}
-        {% endfor %}
-    </ul>
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="nav-inner">
+      <span class="nav-title">PDN Course: HPC & Networking</span>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <button class="nav-dot" data-target="module-0" data-tooltip="Module 0: Introduction to Performance" role="tab" aria-label="Module 0: Module 0: Introduction to Performance"></button>
+        <button class="nav-dot" data-target="module-1-1" data-tooltip="Module 1 Ch 1: OpenMP Basics" role="tab" aria-label="Module 1: Module 1 Ch 1: OpenMP Basics"></button>
+        <button class="nav-dot" data-target="module-1-2" data-tooltip="Module 1 Ch 2: Embarrassingly Parallel" role="tab" aria-label="Module 2: Module 1 Ch 2: Embarrassingly Parallel"></button>
+        <button class="nav-dot" data-target="module-1-3" data-tooltip="Module 1 Ch 3: Mutual Exclusion" role="tab" aria-label="Module 3: Module 1 Ch 3: Mutual Exclusion"></button>
+        <button class="nav-dot" data-target="module-2-1" data-tooltip="Module 2 Ch 1: GPU/CUDA" role="tab" aria-label="Module 4: Module 2 Ch 1: GPU/CUDA"></button>
+        <button class="nav-dot" data-target="module-2-2" data-tooltip="Module 2 Ch 2: CUDA Organization" role="tab" aria-label="Module 5: Module 2 Ch 2: CUDA Organization"></button>
+        <button class="nav-dot" data-target="module-2-3" data-tooltip="Module 2 Ch 3: GPU Memory & Reduction" role="tab" aria-label="Module 6: Module 2 Ch 3: GPU Memory & Reduction"></button>
+        <button class="nav-dot" data-target="module-3-1" data-tooltip="Module 3 Ch 1: MPI Intro" role="tab" aria-label="Module 7: Module 3 Ch 1: MPI Intro"></button>
+        <button class="nav-dot" data-target="module-3-2" data-tooltip="Module 3 Ch 2: Foster's Method" role="tab" aria-label="Module 8: Module 3 Ch 2: Foster's Method"></button>
+        <button class="nav-dot" data-target="module-3-3" data-tooltip="Module 3 Ch 3: MPI Matrix-Vector" role="tab" aria-label="Module 9: Module 3 Ch 3: MPI Matrix-Vector"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="Module 4: MapReduce" role="tab" aria-label="Module 10: Module 4: MapReduce"></button>
+        <button class="nav-dot" data-target="module-5" data-tooltip="Module 5: Networks" role="tab" aria-label="Module 11: Module 5: Networks"></button>
+
+      </div>
+    </div>
+  </nav>
+  <main id="main">
+<section class="module" id="module-0">
+  <div class="module-content">
+    <div class="module-header">
+      <h2 class="module-title">Module 0: Introduction to Performance</h2>
+    </div>
+
+    <div class="content-block">
+      <p>Before we begin, <span class="term" data-definition="The time taken to process a single unit of work.">Latency</span> and <span class="term" data-definition="The rate at which work is completed.">Throughput</span> are key concepts.</p>
+    </div>
+    
+    <div class="chat-window" id="chat-module0">
+      <div class="chat-messages">
+        <div class="chat-message" data-msg="0" data-sender="user" style="display:none">
+          <div class="chat-avatar" style="background: var(--color-actor-1)">U</div>
+          <div class="chat-bubble">
+            <span class="chat-sender" style="color: var(--color-actor-1)">User</span>
+            <p>How do we speed this up?</p>
+          </div>
+        </div>
+        <div class="chat-message" data-msg="1" data-sender="system" style="display:none">
+          <div class="chat-avatar" style="background: var(--color-actor-2)">S</div>
+          <div class="chat-bubble">
+            <span class="chat-sender" style="color: var(--color-actor-2)">System</span>
+            <p>By adding more processors! We can use parallel processing.</p>
+          </div>
+        </div>
+      </div>
+      <div class="chat-typing" style="display:none">
+        <div class="chat-avatar">?</div>
+        <div class="chat-typing-dots">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+        </div>
+      </div>
+      <div class="chat-controls">
+        <button class="btn chat-next-btn">Next Message</button>
+        <button class="btn chat-all-btn">Play All</button>
+        <button class="btn chat-reset-btn">Replay</button>
+        <span class="chat-progress"></span>
+      </div>
+    </div>
+    
+    <div class="flow-animation" data-steps='[
+      {"highlight":"flow-actor-1","label":"Initialize data"},
+      {"highlight":"flow-actor-2","label":"Distribute to processors","packet":true,"from":"actor-1","to":"actor-2"},
+      {"highlight":"flow-actor-2","label":"Compute local results"},
+      {"highlight":"flow-actor-1","label":"Collect results","packet":true,"from":"actor-2","to":"actor-1"}
+    ]'>
+      <div class="flow-actors">
+        <div class="flow-actor" id="flow-actor-1">
+          <div class="flow-actor-icon">M</div>
+          <span>Master</span>
+        </div>
+        <div class="flow-actor" id="flow-actor-2">
+          <div class="flow-actor-icon">W</div>
+          <span>Workers</span>
+        </div>
+      </div>
+      <div class="flow-packet" id="flow-packet"></div>
+      <div class="flow-step-label">Click "Next Step" to begin</div>
+      <div class="flow-controls">
+        <button class="btn flow-next-btn">Next Step</button>
+        <button class="btn flow-reset-btn">Restart</button>
+        <span class="flow-progress"></span>
+      </div>
+    </div>
+            <div class="quiz-container" id="quiz-module-0">
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Speedup = Serial / Parallel = 10^6 / 2*10^3 = 500."
+           data-explanation-wrong="Speedup = Serial / Parallel = 10^6 / 2*10^3 = 500.">
+        <h3 class="quiz-question">Calculate speedup if serial time is 10^6 and parallel time is 2*10^3:</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>10^3</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>500</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>2000</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>1024</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Efficiency = Speedup / p. If n is fixed, overhead limits speedup, so dividing by larger p decreases efficiency."
+           data-explanation-wrong="Efficiency = Speedup / p. If n is fixed, overhead limits speedup, so dividing by larger p decreases efficiency.">
+        <h3 class="quiz-question">What happens to efficiency when processors p increase while n is fixed?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It increases</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It decreases</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It stays the same</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It becomes 1</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="Throughput measures the number of items completed per unit of time."
+           data-explanation-wrong="Throughput measures the number of items completed per unit of time.">
+        <h3 class="quiz-question">What does Throughput measure?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>How long it takes for a car to be assembled</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>How many cars can be assembled per robot</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>How many cars can be assembled per unit of time</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>None of the above</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-a"
+           data-explanation-right="SISD is Single Instruction Single Data, which is the simplest model (one worker, one supervisor)."
+           data-explanation-wrong="SISD is Single Instruction Single Data, which is the simplest model (one worker, one supervisor).">
+        <h3 class="quiz-question">In SISD model:</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>There is one robot and one supervisor</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>There are multiple robots and one supervisor</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>There are multiple robots and multiple supervisors</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>None of the above</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="If p is fixed and n increases, the parallel portion dominates over overhead, increasing efficiency."
+           data-explanation-wrong="If p is fixed and n increases, the parallel portion dominates over overhead, increasing efficiency.">
+        <h3 class="quiz-question">What happens to the efficiency when p is fixed and n is increased?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It decreases</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It increases</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It stays the same</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It becomes 0</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-global-controls">
+        <button class="quiz-check-btn btn" onclick="checkQuiz('quiz-module-0')">Check Answers</button>
+        <button class="quiz-reset-btn btn" onclick="resetQuiz('quiz-module-0')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-1-1">
+  <div class="module-content">
+    <div class="module-header">
+      <h2 class="module-title">Module 1 Ch 1: OpenMP Basics</h2>
+    </div>
+
+    <div class="content-block">
+      <p>Let's dive into <span class="term" data-definition="The core technical principles of this section.">Module 1 Ch 1: OpenMP Basics</span>.</p>
+    </div>
+            <div class="quiz-container" id="quiz-module-1-1">
+      <div class="quiz-question-block"
+           data-correct="option-a"
+           data-explanation-right="The `#pragma omp parallel for` directive parallelizes the following for loop."
+           data-explanation-wrong="The `#pragma omp parallel for` directive parallelizes the following for loop.">
+        <h3 class="quiz-question">Which compiler directive is used to parallelize a loop in OpenMP?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>#pragma omp parallel for</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>#pragma omp loop</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>#pragma omp barrier</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>#pragma omp atomic</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="OpenMP directives are pragmas which are ignored by compilers that do not support them."
+           data-explanation-wrong="OpenMP directives are pragmas which are ignored by compilers that do not support them.">
+        <h3 class="quiz-question">What happens to an OpenMP directive if compiled with a non-compatible compiler?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It causes a compile error</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It is ignored</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It throws a runtime exception</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It crashes the OS</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-a"
+           data-explanation-right="Reduction creates a private copy of the variable for each thread and safely combines them at the end, preventing race conditions."
+           data-explanation-wrong="Reduction creates a private copy of the variable for each thread and safely combines them at the end, preventing race conditions.">
+        <h3 class="quiz-question">What is the purpose of the reduction clause?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>To avoid race conditions when aggregating a value across threads</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>To reduce the number of threads</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>To reduce memory usage</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>To serialize the loop</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="Thread execution order is not guaranteed and can be random."
+           data-explanation-wrong="Thread execution order is not guaranteed and can be random.">
+        <h3 class="quiz-question">In a parallel block, thread execution order is:</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Strictly sequential</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>In ascending order of thread ID</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Random and non-deterministic</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>In descending order of thread ID</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Updating a shared variable concurrently without protection causes a race condition."
+           data-explanation-wrong="Updating a shared variable concurrently without protection causes a race condition.">
+        <h3 class="quiz-question">If y is declared outside an OpenMP parallel for loop and updated inside it without reduction, what occurs?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>A deadlock</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>A race condition</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>A syntax error</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Correct parallel update</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-global-controls">
+        <button class="quiz-check-btn btn" onclick="checkQuiz('quiz-module-1-1')">Check Answers</button>
+        <button class="quiz-reset-btn btn" onclick="resetQuiz('quiz-module-1-1')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-1-2">
+  <div class="module-content">
+    <div class="module-header">
+      <h2 class="module-title">Module 1 Ch 2: Embarrassingly Parallel</h2>
+    </div>
+
+    <div class="content-block">
+      <p>Let's dive into <span class="term" data-definition="The core technical principles of this section.">Module 1 Ch 2: Embarrassingly Parallel</span>.</p>
+    </div>
+            <div class="quiz-container" id="quiz-module-1-2">
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="The index variable must be private so each thread has its own copy."
+           data-explanation-wrong="The index variable must be private so each thread has its own copy.">
+        <h3 class="quiz-question">What variable scope must be used for a loop index inside a parallel for loop?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Shared</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Private</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Global</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Constant</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="OpenMP automatically makes the loop index private."
+           data-explanation-wrong="OpenMP automatically makes the loop index private.">
+        <h3 class="quiz-question">How does OpenMP handle the loop index automatically in `#pragma omp parallel for`?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It makes it shared</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It makes it private</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It makes it atomic</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It ignores it</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="Variables declared outside the parallel region are shared by default."
+           data-explanation-wrong="Variables declared outside the parallel region are shared by default.">
+        <h3 class="quiz-question">What happens if diff is not declared as a private variable inside the loop?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It causes a memory leak</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It acts as a reduction variable</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It becomes a shared variable, causing a race condition</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Nothing, it's fine</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-a"
+           data-explanation-right="There is no built-in reduction operator for finding the location (index) of the minimum."
+           data-explanation-wrong="There is no built-in reduction operator for finding the location (index) of the minimum.">
+        <h3 class="quiz-question">Why might a critical section be used when computing the index of a minimum value?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because reduction only works on standard operations (like sum, min, max)</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because it's faster</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because it uses less memory</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because OpenMP requires it for all arrays</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="Using local structures avoids the bottleneck of a single critical section inside the loop."
+           data-explanation-wrong="Using local structures avoids the bottleneck of a single critical section inside the loop.">
+        <h3 class="quiz-question">How can you improve scalability when finding the minimum index?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>By doing everything serially</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>By using a single global critical section</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>By creating local minimums and indexes per thread and reducing serially after</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>By ignoring the index</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-global-controls">
+        <button class="quiz-check-btn btn" onclick="checkQuiz('quiz-module-1-2')">Check Answers</button>
+        <button class="quiz-reset-btn btn" onclick="resetQuiz('quiz-module-1-2')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-1-3">
+  <div class="module-content">
+    <div class="module-header">
+      <h2 class="module-title">Module 1 Ch 3: Mutual Exclusion</h2>
+    </div>
+
+    <div class="content-block">
+      <p>Let's dive into <span class="term" data-definition="The core technical principles of this section.">Module 1 Ch 3: Mutual Exclusion</span>.</p>
+    </div>
+            <div class="quiz-container" id="quiz-module-1-3">
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="An array of locks allows different threads to update different bins simultaneously, avoiding a single bottleneck."
+           data-explanation-wrong="An array of locks allows different threads to update different bins simultaneously, avoiding a single bottleneck.">
+        <h3 class="quiz-question">Why is using an array of locks more scalable than a single critical section?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because it uses less memory</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because it allows parallel updates to different bins/elements</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because locks are faster than critical sections always</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because it is easier to code</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Hardware acceleration makes atomic increment operations faster than locking."
+           data-explanation-wrong="Hardware acceleration makes atomic increment operations faster than locking.">
+        <h3 class="quiz-question">What is the advantage of using `#pragma omp atomic` over locks?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It supports all operations</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>There is hardware acceleration for atomic operations</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It eliminates the need for any synchronization</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It allows multiple updates to the exact same variable simultaneously without wait</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Atomic only supports specific simple operations like increment, decrement, addition, etc."
+           data-explanation-wrong="Atomic only supports specific simple operations like increment, decrement, addition, etc.">
+        <h3 class="quiz-question">What is a limitation of the `#pragma omp atomic` directive?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It is slow</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It only supports a limited set of operations</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It requires 64-bit systems</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It can only be used by one thread at a time</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-d"
+           data-explanation-right="The variable tracking the bin index for a particular element must be private to each thread."
+           data-explanation-wrong="The variable tracking the bin index for a particular element must be private to each thread.">
+        <h3 class="quiz-question">When doing a histogram count in parallel, what should the variable 'x' be?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Shared</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Atomic</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Critical</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Private</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-d"
+           data-explanation-right="Creating local copies completely avoids synchronization overhead during the main loop."
+           data-explanation-wrong="Creating local copies completely avoids synchronization overhead during the main loop.">
+        <h3 class="quiz-question">Which of these has the best performance if no mutual exclusion is used at all?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Critical</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Locks</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Atomic</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Creating a local array per thread and summing them at the end</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-global-controls">
+        <button class="quiz-check-btn btn" onclick="checkQuiz('quiz-module-1-3')">Check Answers</button>
+        <button class="quiz-reset-btn btn" onclick="resetQuiz('quiz-module-1-3')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-2-1">
+  <div class="module-content">
+    <div class="module-header">
+      <h2 class="module-title">Module 2 Ch 1: GPU/CUDA</h2>
+    </div>
+
+    <div class="content-block">
+      <p>Let's dive into <span class="term" data-definition="The core technical principles of this section.">Module 2 Ch 1: GPU/CUDA</span>.</p>
+    </div>
+            <div class="quiz-container" id="quiz-module-2-1">
+      <div class="quiz-question-block"
+           data-correct="option-a"
+           data-explanation-right="ceil(2000/256) = 8 blocks."
+           data-explanation-wrong="ceil(2000/256) = 8 blocks.">
+        <h3 class="quiz-question">If n=2000, and block size is 256, how many blocks will be launched?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>8</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>7</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>10</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>2000</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="The kernel should include an `if (i < n)` check, causing extra threads to do nothing (be idle)."
+           data-explanation-wrong="The kernel should include an `if (i < n)` check, causing extra threads to do nothing (be idle).">
+        <h3 class="quiz-question">If 2048 threads are launched for 2000 additions, what happens to the extra 48 threads?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>They throw an out-of-bounds error</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>They will be idle if boundary checks are in place</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>They crash the GPU</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>They compute random data</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Global Index = Block Index * Block Dimension + Thread Index."
+           data-explanation-wrong="Global Index = Block Index * Block Dimension + Thread Index.">
+        <h3 class="quiz-question">What is the thread index formula for a 1D grid and block?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>blockIdx.x * threadIdx.x</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>blockIdx.x * blockDim.x + threadIdx.x</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>threadIdx.x + blockDim.x</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>blockIdx.x + threadIdx.x</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Instead of a loop sequentially iterating over elements, a grid of threads is launched where each thread computes one element."
+           data-explanation-wrong="Instead of a loop sequentially iterating over elements, a grid of threads is launched where each thread computes one element.">
+        <h3 class="quiz-question">Why is there no loop in a typical vector addition CUDA kernel?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because the GPU has no loop instruction</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because a vector of threads works on a vector of data elements in parallel</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because loops are too slow</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because CUDA compilers unroll all loops</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="GPUs handle scheduling automatically; threads wait in a queue until resources are available."
+           data-explanation-wrong="GPUs handle scheduling automatically; threads wait in a queue until resources are available.">
+        <h3 class="quiz-question">What happens if there are not enough physical cores for the launched threads?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>The program crashes</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Threads will be queued and launched as cores become available</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>The GPU skips some data</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>The CPU does the remaining work</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-global-controls">
+        <button class="quiz-check-btn btn" onclick="checkQuiz('quiz-module-2-1')">Check Answers</button>
+        <button class="quiz-reset-btn btn" onclick="resetQuiz('quiz-module-2-1')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-2-2">
+  <div class="module-content">
+    <div class="module-header">
+      <h2 class="module-title">Module 2 Ch 2: CUDA Organization</h2>
+    </div>
+
+    <div class="content-block">
+      <p>Let's dive into <span class="term" data-definition="The core technical principles of this section.">Module 2 Ch 2: CUDA Organization</span>.</p>
+    </div>
+            <div class="quiz-container" id="quiz-module-2-2">
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="ceil(2000/8) = 250."
+           data-explanation-wrong="ceil(2000/8) = 250.">
+        <h3 class="quiz-question">For 3D data of size 2000x1500x1800 and 8x8x8 block size, what is the grid dimension in X?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>188</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>225</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>250</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>2000</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Since threads across different blocks cannot reliably synchronize, iterative global steps usually require finishing the kernel and launching it again from the CPU."
+           data-explanation-wrong="Since threads across different blocks cannot reliably synchronize, iterative global steps usually require finishing the kernel and launching it again from the CPU.">
+        <h3 class="quiz-question">In iterative stencil computation like image blurring, what synchronization is typically needed between iterations?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>__syncthreads() inside the kernel</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Barrier synchronization between CPU and GPU (launching the kernel multiple times)</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>None</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Atomic locks</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="It is a block-level synchronization barrier."
+           data-explanation-wrong="It is a block-level synchronization barrier.">
+        <h3 class="quiz-question">What does `__syncthreads()` do?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Synchronizes all threads across all blocks</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Synchronizes CPU and GPU</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Synchronizes all threads within the same block</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Terminates the thread</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="The z-dimension is accessed via `blockIdx.z`."
+           data-explanation-wrong="The z-dimension is accessed via `blockIdx.z`.">
+        <h3 class="quiz-question">In a 3D kernel, how do you access the z-dimension of the block index?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>blockIdx.x</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>blockIdx.y</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>blockIdx.z</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>blockIdx.w</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Blocks must be full sizes (like 8x8x8). If the data dimension isn't a perfect multiple, the boundary blocks will contain idle threads."
+           data-explanation-wrong="Blocks must be full sizes (like 8x8x8). If the data dimension isn't a perfect multiple, the boundary blocks will contain idle threads.">
+        <h3 class="quiz-question">Why might some threads have no computation to do in a block?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because they failed to launch</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because the grid dimension multiplied by block dimension is often larger than the actual data size to cover the boundaries</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because they are reserved for the OS</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because of a syntax error</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-global-controls">
+        <button class="quiz-check-btn btn" onclick="checkQuiz('quiz-module-2-2')">Check Answers</button>
+        <button class="quiz-reset-btn btn" onclick="resetQuiz('quiz-module-2-2')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-2-3">
+  <div class="module-content">
+    <div class="module-header">
+      <h2 class="module-title">Module 2 Ch 3: GPU Memory & Reduction</h2>
+    </div>
+
+    <div class="content-block">
+      <p>Let's dive into <span class="term" data-definition="The core technical principles of this section.">Module 2 Ch 3: GPU Memory & Reduction</span>.</p>
+    </div>
+            <div class="quiz-container" id="quiz-module-2-3">
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="log2(1024) = 10 iterations."
+           data-explanation-wrong="log2(1024) = 10 iterations.">
+        <h3 class="quiz-question">How many iterations does a parallel tree reduction take for an array of 1024 elements?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>1024</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>512</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>10</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>1</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="1024 threads / 32 threads per warp = 32 warps."
+           data-explanation-wrong="1024 threads / 32 threads per warp = 32 warps.">
+        <h3 class="quiz-question">For a block size of 1024, how many warps are launched?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>1</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>16</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>32</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>1024</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Because active threads are interleaved (e.g., every 2nd, then every 4th), threads within a warp take different execution paths (control divergence)."
+           data-explanation-wrong="Because active threads are interleaved (e.g., every 2nd, then every 4th), threads within a warp take different execution paths (control divergence).">
+        <h3 class="quiz-question">In tree reduction with interleaved addressing, what causes poor performance at later iterations?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Memory leaks</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Control divergence within warps</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Too many iterations</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Atomic conflicts</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="Efficiency = Speedup / Cores = ~102 / 1024 = ~10%."
+           data-explanation-wrong="Efficiency = Speedup / Cores = ~102 / 1024 = ~10%.">
+        <h3 class="quiz-question">What is the theoretical efficiency of parallel tree reduction with N=1024?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>100%</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>50%</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>10%</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>1%</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="Starting at 1024, it halves each time. 1024 -> 512 -> 256 -> 128 -> 64 -> 32."
+           data-explanation-wrong="Starting at 1024, it halves each time. 1024 -> 512 -> 256 -> 128 -> 64 -> 32.">
+        <h3 class="quiz-question">In tree reduction with sequential addressing, how many elements remain to be combined after the 5th iteration (N=1024)?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>1024</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>512</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>32</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>1</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-global-controls">
+        <button class="quiz-check-btn btn" onclick="checkQuiz('quiz-module-2-3')">Check Answers</button>
+        <button class="quiz-reset-btn btn" onclick="resetQuiz('quiz-module-2-3')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-3-1">
+  <div class="module-content">
+    <div class="module-header">
+      <h2 class="module-title">Module 3 Ch 1: MPI Intro</h2>
+    </div>
+
+    <div class="content-block">
+      <p>Let's dive into <span class="term" data-definition="The core technical principles of this section.">Module 3 Ch 1: MPI Intro</span>.</p>
+    </div>
+            <div class="quiz-container" id="quiz-module-3-1">
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="SPMD means all processes run the exact same compiled program code, but operate on different data based on their rank."
+           data-explanation-wrong="SPMD means all processes run the exact same compiled program code, but operate on different data based on their rank.">
+        <h3 class="quiz-question">What does SPMD stand for?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Single Process Multiple Data</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Single Program Multiple Data</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Shared Process Memory Data</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Sequential Program Multiple Data</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="MPI_Send and MPI_Recv are the standard point-to-point communication functions."
+           data-explanation-wrong="MPI_Send and MPI_Recv are the standard point-to-point communication functions.">
+        <h3 class="quiz-question">In an MPI point-to-point communication, which functions are primarily used?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Bcast and MPI_Reduce</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Send and MPI_Recv</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Init and MPI_Finalize</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Barrier</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="Process 0 computes its own random number. It only receives from the other processes (1 to N-1)."
+           data-explanation-wrong="Process 0 computes its own random number. It only receives from the other processes (1 to N-1).">
+        <h3 class="quiz-question">Why does process 0 need to put its own value into the sum first before receiving?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because it has no rank</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because it is faster</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because it doesn't receive a message from itself</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because MPI_Recv blocks itself</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="In a distributed memory system, data must be explicitly sent via messages."
+           data-explanation-wrong="In a distributed memory system, data must be explicitly sent via messages.">
+        <h3 class="quiz-question">After process 0 computes the total sum, how do other processes get it in a naive point-to-point implementation?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>They read it from shared memory</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Process 0 must send it to them via MPI_Send</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>They compute it themselves</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>It is automatically broadcasted</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Since the same code runs on all processes, variables are declared in all, even if only used by specific ranks."
+           data-explanation-wrong="Since the same code runs on all processes, variables are declared in all, even if only used by specific ranks.">
+        <h3 class="quiz-question">What happens to variables like 'recv_value' in processes that do not use them?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>They cause a compile error</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>They are created but not used due to the SPMD model</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>They are automatically deleted</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>They share memory with process 0</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-global-controls">
+        <button class="quiz-check-btn btn" onclick="checkQuiz('quiz-module-3-1')">Check Answers</button>
+        <button class="quiz-reset-btn btn" onclick="resetQuiz('quiz-module-3-1')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-3-2">
+  <div class="module-content">
+    <div class="module-header">
+      <h2 class="module-title">Module 3 Ch 2: Foster's Method</h2>
+    </div>
+
+    <div class="content-block">
+      <p>Let's dive into <span class="term" data-definition="The core technical principles of this section.">Module 3 Ch 2: Foster's Method</span>.</p>
+    </div>
+            <div class="quiz-container" id="quiz-module-3-2">
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="MPI uses distributed memory; processes must pass messages. CUDA threads within a block can use shared memory."
+           data-explanation-wrong="MPI uses distributed memory; processes must pass messages. CUDA threads within a block can use shared memory.">
+        <h3 class="quiz-question">What is the main difference between CUDA threads and MPI processes regarding memory?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>CUDA threads are faster</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI processes can access shared memory directly</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>CUDA threads share memory directly, while MPI processes require explicit message passing</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>There is no difference</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="MPI_Recv blocks execution until the message is received, naturally synchronizing the processes involved."
+           data-explanation-wrong="MPI_Recv blocks execution until the message is received, naturally synchronizing the processes involved.">
+        <h3 class="quiz-question">Does MPI tree reduction using MPI_Recv require an explicit MPI_Barrier?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Yes, always</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>No, because the receive operation is blocking</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Yes, to prevent race conditions</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>No, because it is shared memory</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="Process 0 must perform N-1 receives and additions sequentially."
+           data-explanation-wrong="Process 0 must perform N-1 receives and additions sequentially.">
+        <h3 class="quiz-question">What is the complexity of computing a global sum serially in MPI with N processes?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(1)</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(log N)</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(N)</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(N^2)</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="The tree reduction pattern allows pairs to combine simultaneously, reducing the steps to log2(N)."
+           data-explanation-wrong="The tree reduction pattern allows pairs to combine simultaneously, reducing the steps to log2(N).">
+        <h3 class="quiz-question">What is the complexity of computing a global sum using parallel tree reduction in MPI?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(1)</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(log N)</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(N)</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(N^2)</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="MPI explicitly matches a Recv with a Send based on the sender's rank and message tag."
+           data-explanation-wrong="MPI explicitly matches a Recv with a Send based on the sender's rank and message tag.">
+        <h3 class="quiz-question">In an MPI point-to-point tree reduction, how are send and receive operations matched?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>By random selection</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>By source and destination process ranks</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>By memory addresses</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>By barrier tags</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-global-controls">
+        <button class="quiz-check-btn btn" onclick="checkQuiz('quiz-module-3-2')">Check Answers</button>
+        <button class="quiz-reset-btn btn" onclick="resetQuiz('quiz-module-3-2')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-3-3">
+  <div class="module-content">
+    <div class="module-header">
+      <h2 class="module-title">Module 3 Ch 3: MPI Matrix-Vector</h2>
+    </div>
+
+    <div class="content-block">
+      <p>Let's dive into <span class="term" data-definition="The core technical principles of this section.">Module 3 Ch 3: MPI Matrix-Vector</span>.</p>
+    </div>
+            <div class="quiz-container" id="quiz-module-3-3">
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="MPI_Gather collects elements from each process and stores them consecutively in an array on the root process."
+           data-explanation-wrong="MPI_Gather collects elements from each process and stores them consecutively in an array on the root process.">
+        <h3 class="quiz-question">Which collective communication function is used to collect data from all processes to a single array on the root process?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Scatter</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Bcast</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Gather</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Reduce</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="Like MPI_Reduce, MPI_Gather typically scales by log2(P) using a tree reduction pattern internally."
+           data-explanation-wrong="Like MPI_Reduce, MPI_Gather typically scales by log2(P) using a tree reduction pattern internally.">
+        <h3 class="quiz-question">What is the communication time for MPI_Gather?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(1)</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(N)</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(log P)</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(P)</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-a"
+           data-explanation-right="MPI_Sendrecv executes a blocking send and a blocking receive in a single call, preventing deadlock between neighbors."
+           data-explanation-wrong="MPI_Sendrecv executes a blocking send and a blocking receive in a single call, preventing deadlock between neighbors.">
+        <h3 class="quiz-question">When checking if numbers are sorted locally in parallel, which function allows simultaneously sending and receiving?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Sendrecv</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Bcast</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Gather</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Isend</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="MPI_Reduce with MPI_LAND (logical AND) will return true only if all input booleans are true."
+           data-explanation-wrong="MPI_Reduce with MPI_LAND (logical AND) will return true only if all input booleans are true.">
+        <h3 class="quiz-question">If each process determines a local boolean result, how can you determine if ALL processes are true?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Gather</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Bcast</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Reduce with logical AND operator</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MPI_Barrier</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Checking the order serially requires P-1 comparisons, so O(P)."
+           data-explanation-wrong="Checking the order serially requires P-1 comparisons, so O(P).">
+        <h3 class="quiz-question">If process 0 gathers numbers from P processes and sorts them serially, what is the computation time?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(1)</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(P)</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(log P)</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>O(P log P)</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-global-controls">
+        <button class="quiz-check-btn btn" onclick="checkQuiz('quiz-module-3-3')">Check Answers</button>
+        <button class="quiz-reset-btn btn" onclick="resetQuiz('quiz-module-3-3')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-4">
+  <div class="module-content">
+    <div class="module-header">
+      <h2 class="module-title">Module 4: MapReduce</h2>
+    </div>
+
+    <div class="content-block">
+      <p>Let's dive into <span class="term" data-definition="The core technical principles of this section.">Module 4: MapReduce</span>.</p>
+    </div>
+            <div class="quiz-container" id="quiz-module-4">
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Mappers process individual records (like rows in a CSV) and emit key-value pairs."
+           data-explanation-wrong="Mappers process individual records (like rows in a CSV) and emit key-value pairs.">
+        <h3 class="quiz-question">In MapReduce, how are elements usually processed in the Mapper?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>By accessing a shared SQL database</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>By splitting rows into fields and emitting Key-Value pairs</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>By reducing the data locally</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>By sending them directly to the user</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="An average can be calculated by reducing sums and counts globally. A median requires the entire sorted set of data."
+           data-explanation-wrong="An average can be calculated by reducing sums and counts globally. A median requires the entire sorted set of data.">
+        <h3 class="quiz-question">Why might calculating an average be done with a Combiner, but not a median?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because averages are integers</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because the local sums and counts can be combined, but local medians cannot form a global median</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because the median is too hard to program</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Because Combiners cannot use lists</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Combiners pre-reduce data locally. Without them, all intermediate key-value pairs must be sent across the network to the reducers."
+           data-explanation-wrong="Combiners pre-reduce data locally. Without them, all intermediate key-value pairs must be sent across the network to the reducers.">
+        <h3 class="quiz-question">What is the main drawback of NOT using a combiner?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Incorrect results</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Heavy data transfer load during the shuffle phase</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Compiler errors</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>The reducer will crash</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="To group stats by month, the Month must be emitted as the key."
+           data-explanation-wrong="To group stats by month, the Month must be emitted as the key.">
+        <h3 class="quiz-question">In a MapReduce weather program parsing YYYY-MM-DD to find monthly stats, what should be the Key?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>The year</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>The full date</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>The month (MM)</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>The temperature</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="The shuffle phase groups all values for a key together and passes them as an iterable to the Reducer."
+           data-explanation-wrong="The shuffle phase groups all values for a key together and passes them as an iterable to the Reducer.">
+        <h3 class="quiz-question">How does a Reducer receive its data?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>As a single value per key</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>As a list or iterator of all values associated with a specific key</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>As a randomly ordered stream of all values</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>As a file path</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-global-controls">
+        <button class="quiz-check-btn btn" onclick="checkQuiz('quiz-module-4')">Check Answers</button>
+        <button class="quiz-reset-btn btn" onclick="resetQuiz('quiz-module-4')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-5">
+  <div class="module-content">
+    <div class="module-header">
+      <h2 class="module-title">Module 5: Networks</h2>
+    </div>
+
+    <div class="content-block">
+      <p>Let's dive into <span class="term" data-definition="The core technical principles of this section.">Module 5: Networks</span>.</p>
+    </div>
+            <div class="quiz-container" id="quiz-module-5">
+      <div class="quiz-question-block"
+           data-correct="option-a"
+           data-explanation-right="Transmission delay is the time required to push all the packet's bits into the link (L/R)."
+           data-explanation-wrong="Transmission delay is the time required to push all the packet's bits into the link (L/R).">
+        <h3 class="quiz-question">What is the formula for Transmission Delay?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>L / R (Length / Rate)</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>d / s (Distance / Speed)</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Buffer size / Rate</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Length * Speed</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Propagation delay is the time it takes for a bit to travel through the physical medium (d/s)."
+           data-explanation-wrong="Propagation delay is the time it takes for a bit to travel through the physical medium (d/s).">
+        <h3 class="quiz-question">What is the formula for Propagation Delay?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>L / R (Length / Rate)</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>d / s (Distance / Speed)</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Buffer size / Rate</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Rate / Distance</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="TCP provides a reliable, in-order byte-stream service."
+           data-explanation-wrong="TCP provides a reliable, in-order byte-stream service.">
+        <h3 class="quiz-question">Which transport layer protocol provides Reliable Data Transfer?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>UDP</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>IP</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>TCP</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>HTTP</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-c"
+           data-explanation-right="The IP address identifies the destination host; the Port number identifies the specific process on that host."
+           data-explanation-wrong="The IP address identifies the destination host; the Port number identifies the specific process on that host.">
+        <h3 class="quiz-question">What does a local process use to identify the destination process?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>MAC address</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>IP address</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Port number</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Host name</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-question-block"
+           data-correct="option-d"
+           data-explanation-right="TCP does not guarantee timing or throughput. In fact, its congestion control and retransmissions can increase delay and alter throughput."
+           data-explanation-wrong="TCP does not guarantee timing or throughput. In fact, its congestion control and retransmissions can increase delay and alter throughput.">
+        <h3 class="quiz-question">Does TCP provide a guarantee on Timing or Throughput?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Yes, both</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Only Timing</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Only Throughput</span>
+          </button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Neither</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <div class="quiz-global-controls">
+        <button class="quiz-check-btn btn" onclick="checkQuiz('quiz-module-5')">Check Answers</button>
+        <button class="quiz-reset-btn btn" onclick="resetQuiz('quiz-module-5')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+  </main>
+
 </body>
 </html>
