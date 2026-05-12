@@ -2,7 +2,7 @@
 
 # Configuration
 OUTPUT_FILE="index.html"
-EXCLUDE_PATTERNS=("index.html" "*/libs/*" "*/trash/*" "_*" "*/node_modules/*")
+EXCLUDE_PATTERNS=("index.html" "*/libs/*" "*/trash/*" "_*" "*/node_modules/*" "*/modules/*" "*/briefs/*")
 
 # Start generating index.html
 cat <<EOF > "$OUTPUT_FILE"
