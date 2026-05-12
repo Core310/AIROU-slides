@@ -80,7 +80,14 @@ eval "$FIND_CMD" | sort | while read -r file; do
     # Get directory for context
     dirname=$(dirname "$clean_path")
     
-    echo "        <li><a href=\"$clean_path\">$filename</a><div class=\"path\">$dirname</div></li>" >> "$OUTPUT_FILE"
+    # If file is in root, dirname is .
+    if [[ "$dirname" == "." ]]; then
+        display_path="root"
+    else
+        display_path="$dirname"
+    fi
+    
+    echo "        <li><a href=\"$clean_path\">$filename</a><div class=\"path\">$display_path</div></li>" >> "$OUTPUT_FILE"
 done
 
 cat <<EOF >> "$OUTPUT_FILE"
