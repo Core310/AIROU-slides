@@ -5,11 +5,116 @@
     <p class="lead">If a Domain Model is the skeleton, a <strong>Data Flow Diagram (DFD)</strong> is the circulatory system. It shows how information moves.</p>
   </div>
 
+  <!-- Visual: Swimlanes (Activity Diagram) -->
   <div class="screen">
-    <div class="quiz-container" id="quiz-m4-hard">
-      <!-- Hard Q1: DFD Levels -->
-      <div class="quiz-question-block" data-correct="option-lvl1" data-explanation-right="Correct! Level 0 is a black box (no stores). Level 1 is the first time we see internal persistence (Data Stores) and major functional partitions." data-explanation-wrong="Level 0 is the context; it strictly hides internal details.">
-        <h3 class="quiz-question">Level Logic: In a standard DFD hierarchy, which level is the FIRST to show 'Data Stores' and multiple internal processes?</h3>
+    <h2 class="h2">The Swimlane (Process) View</h2>
+    <p>We use <strong>Swimlanes</strong> (partitions) to show <em>who</em> is doing <em>what</em>. It's an Activity Diagram that assigns responsibility.</p>
+    
+    <div class="arch-diagram" id="swimlane-diagram">
+      <div class="arch-zone" style="border-style: solid; border-width: 0 0 1px 0;">
+        <div class="arch-zone-label">Customer Lane</div>
+        <div class="arch-component" data-desc="The customer browses the catalog and selects items.">
+          <span class="arch-icon">🛒</span>
+          <span>Select Items</span>
+        </div>
+        <div class="arch-component" data-desc="The customer provides payment details.">
+          <span class="arch-icon">💳</span>
+          <span>Enter Payment</span>
+        </div>
+      </div>
+      <div class="arch-zone" style="border-style: solid; border-width: 0 0 1px 0; background: rgba(0,0,0,0.02);">
+        <div class="arch-zone-label">System Lane</div>
+        <div class="arch-component" data-desc="System validates stock levels.">
+          <span class="arch-icon">⚙️</span>
+          <span>Validate Stock</span>
+        </div>
+        <div class="arch-component" data-desc="System processes the credit card transaction.">
+          <span class="arch-icon">🏦</span>
+          <span>Process Payment</span>
+        </div>
+      </div>
+      <div class="arch-zone">
+        <div class="arch-zone-label">Database Lane</div>
+        <div class="arch-component" data-desc="The order is written to permanent storage.">
+          <span class="arch-icon">💾</span>
+          <span>Save Order</span>
+        </div>
+      </div>
+      <div class="arch-description">Click a component to see its responsibility.</div>
+    </div>
+
+    <div class="quiz-container" id="quiz-m4-swim">
+      <div class="quiz-question-block" data-correct="option-b" data-explanation-right="Correct! Swimlanes primarily show responsibility by dividing the diagram into zones for different actors or systems." data-explanation-wrong="Look at the vertical/horizontal divisions. They represent actors, not database schemas.">
+        <h3 class="quiz-question">In the diagram above, what is the primary purpose of the 'Lanes'?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) To show data table relationships</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) To assign responsibility to specific actors</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) To show the physical location of servers</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m4-swim')">Verify Responsibility</button>
+    </div>
+  </div>
+
+  <!-- Visual: DFD Levels Layer Demo -->
+  <div class="screen">
+    <h2 class="h2">The 3 Levels of DFD</h2>
+    <p>Data Flow Diagrams evolve from a broad summary to a surgical blueprint. Toggle the layers to see the progression.</p>
+    
+    <div class="layer-demo" id="dfd-levels">
+      <div class="layer-tabs">
+        <button class="layer-tab active" onclick="showLayer(this, 'dfd-lvl0')">Level 0 (Context)</button>
+        <button class="layer-tab" onclick="showLayer(this, 'dfd-lvl1')">Level 1 (Overview)</button>
+        <button class="layer-tab" onclick="showLayer(this, 'dfd-lvl2')">Level 2 (Detail)</button>
+      </div>
+      
+      <div class="layer-viewport" style="background: white; padding: 2rem; min-height: 300px; display: flex; align-items: center; justify-content: center;">
+        <!-- Level 0 -->
+        <div id="dfd-lvl0" class="layer-content" style="display: block; text-align: center;">
+          <div style="display: flex; gap: 2rem; align-items: center;">
+            <div style="border: 2px solid #333; padding: 1rem; width: 120px;">Customer</div>
+            <div style="font-size: 1.5rem;">→ order →</div>
+            <div style="border: 2px solid #007bff; border-radius: 50%; width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; background: #e4f2f7;">E-Shop System</div>
+            <div style="font-size: 1.5rem;">→ receipt →</div>
+            <div style="border: 2px solid #333; padding: 1rem; width: 120px;">Customer</div>
+          </div>
+          <p class="layer-description"><strong>Level 0:</strong> The entire system is a 'Black Box'. No internal data stores are visible.</p>
+        </div>
+
+        <!-- Level 1 -->
+        <div id="dfd-lvl1" class="layer-content" style="display: none; text-align: center;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; align-items: center;">
+            <div style="border: 2px solid #333; padding: 0.5rem;">Customer</div>
+            <div style="border: 2px solid #007bff; border-radius: 50%; padding: 1rem;">1.0 Process Order</div>
+            <div style="border: 2px solid #333; padding: 0.5rem; border-width: 1px 0 1px 0;">[D1] Orders DB</div>
+            
+            <div></div>
+            <div style="border: 2px solid #007bff; border-radius: 50%; padding: 1rem;">2.0 Ship Goods</div>
+            <div style="border: 2px solid #333; padding: 0.5rem;">Warehouse</div>
+          </div>
+          <p class="layer-description"><strong>Level 1:</strong> The 'Black Box' is opened. We see major functional partitions and <strong>Data Stores</strong>.</p>
+        </div>
+
+        <!-- Level 2 -->
+        <div id="dfd-lvl2" class="layer-content" style="display: none; text-align: center;">
+          <div style="border: 1px dashed #ccc; padding: 1rem;">
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <div style="border: 2px solid #007bff; border-radius: 50%; padding: 0.5rem; width: fit-content; margin: 0 auto;">1.1 Validate Order</div>
+              <div style="font-size: 1rem;">↓ valid_info ↓</div>
+              <div style="border: 2px solid #007bff; border-radius: 50%; padding: 0.5rem; width: fit-content; margin: 0 auto;">1.2 Calculate Tax</div>
+              <div style="font-size: 1rem;">↓ total_due ↓</div>
+              <div style="border: 2px solid #007bff; border-radius: 50%; padding: 0.5rem; width: fit-content; margin: 0 auto;">1.3 Authorize Pay</div>
+            </div>
+          </div>
+          <p class="layer-description"><strong>Level 2:</strong> Surgical detail. We explode a single process (1.0) into its sub-steps.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-container" id="quiz-m4-dfd">
+      <div class="quiz-question-block" data-correct="option-lvl1" data-explanation-right="Correct! Level 1 is the first time we see internal persistence (Data Stores) and major functional partitions." data-explanation-wrong="Level 0 is the context; it strictly hides internal details.">
+        <h3 class="quiz-question">Visual Check: Which level is the FIRST to show 'Data Stores' (the open boxes)?</h3>
         <div class="quiz-options">
           <button class="quiz-option" data-value="option-lvl0" onclick="selectOption(this)"><span>Level 0 (Context Diagram)</span></button>
           <button class="quiz-option" data-value="option-lvl1" onclick="selectOption(this)"><span>Level 1 (The Overview)</span></button>
@@ -17,20 +122,7 @@
         </div>
         <div class="quiz-feedback"></div>
       </div>
-
-      <!-- Hard Q2: Connection Errors -->
-      <div class="quiz-question-block" data-correct="option-a,option-b,option-d" data-explanation-right="Correct! External entities cannot talk to Data Stores directly (A), Data Stores cannot talk to each other (B), and every process must have an output (D). (C) is allowed (Process to Entity)." data-explanation-wrong="Think about the 'Active Middleman' rule: data must always be transformed or moved by a Process.">
-        <h3 class="quiz-question">Which of the following represent ILLEGAL DFD connections? (Select ALL)</h3>
-        <div class="quiz-options">
-          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) External Entity → Data Store</span></button>
-          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Data Store → Data Store</span></button>
-          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) Process → External Entity</span></button>
-          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) Process with only input data flows (Black Hole)</span></button>
-        </div>
-        <div class="quiz-feedback"></div>
-      </div>
-
-      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m4-hard')">Audit Diagram Rules</button>
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m4-dfd')">Audit Diagram Levels</button>
     </div>
   </div>
 </section>

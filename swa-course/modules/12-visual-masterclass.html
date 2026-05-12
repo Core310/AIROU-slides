@@ -6,31 +6,50 @@
   </div>
 
   <div class="screen">
-    <div class="quiz-container" id="quiz-m12-hard">
-      <!-- Hard Q1: DFD Notation Errors -->
-      <div class="quiz-question-block" data-correct="option-b,option-d" data-explanation-right="Correct! In Gane & Sarson DFDs, Data Stores CANNOT talk to each other directly (B), and External Entities CANNOT talk to Data Stores directly (D). Data must always flow through a Process." data-explanation-wrong="Look closely at the 'middleman' rule. Every arrow MUST touch a Circle (Process) on at least one end.">
-        <h3 class="quiz-question">Visual Audit: You are reviewing a DFD. Which visual connections represent FORMAL ERRORS? (Select ALL)</h3>
-        <div class="quiz-options">
-          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) Rectangle → Circle</span></button>
-          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Open Box → Open Box</span></button>
-          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) Circle → Open Box</span></button>
-          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) Rectangle → Open Box</span></button>
-        </div>
-        <div class="quiz-feedback"></div>
-      </div>
+    <h2 class="h2">Sequence Diagram Audit</h2>
+    <p>Analyze the object interactions below. Look for message flow, timing, and pattern application.</p>
 
-      <!-- Hard Q2: Sequence Timing & Lifelines -->
-      <div class="quiz-question-block" data-correct="option-expert" data-explanation-right="Correct! Asking an object for info it already HAS is the Information Expert pattern. This reduces coupling by keeping data and logic together." data-explanation-wrong="Think about where the 'truth' about a specific record lives.">
-        <h3 class="quiz-question">Pattern Recognition: In a Sequence Diagram, a 'Controller' sends a message to an 'Order' object: 'isPaid()'. This is an example of applying:</h3>
+    <!-- Visual: Sequence Diagram -->
+    <div class="arch-diagram" style="display: flex; flex-direction: column; align-items: center; padding: 2rem;">
+      <div style="display: flex; gap: 4rem; margin-bottom: 1rem;">
+        <div style="border: 2px solid #333; padding: 0.5rem 1rem; background: #eee;">:CheckoutController</div>
+        <div style="border: 2px solid #333; padding: 0.5rem 1rem; background: #eee;">currOrder:Order</div>
+      </div>
+      
+      <div style="display: flex; width: 100%; justify-content: center; position: relative;">
+        <!-- Vertical Lifelines -->
+        <div style="width: 2px; height: 250px; background: #333; position: absolute; left: calc(50% - 4.5rem);"></div>
+        <div style="width: 2px; height: 250px; background: #333; position: absolute; left: calc(50% + 4.5rem);"></div>
+        
+        <div style="display: flex; flex-direction: column; gap: 2rem; padding-top: 2rem; width: 100%; align-items: center; z-index: 1;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-left: 0.5rem;">
+            <div style="width: 140px; height: 2px; background: #007bff; position: relative;">
+              <div style="position: absolute; right: -5px; top: -4px; border-left: 8px solid #007bff; border-top: 5px solid transparent; border-bottom: 5px solid transparent;"></div>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: #007bff;">1: isPaid()</span>
+          </div>
+          
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-right: 2.5rem;">
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: #666;">2: [true/false]</span>
+            <div style="width: 140px; height: 2px; border-top: 2px dashed #666; position: relative;">
+              <div style="position: absolute; left: -5px; top: -5px; border-right: 8px solid #666; border-top: 5px solid transparent; border-bottom: 5px solid transparent;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-container" id="quiz-m12-sequence">
+      <div class="quiz-question-block" data-correct="option-expert" data-explanation-right="Correct! The Controller asks the Order if it is paid. Since the Order object holds its own state, it is the 'Information Expert' for that data." data-explanation-wrong="Look at where the data lives. Does the Controller know if the order is paid, or does it have to ask the Order object?">
+        <h3 class="quiz-question">In message '1: isPaid()', which pattern is being applied by making 'Order' responsible for the answer?</h3>
         <div class="quiz-options">
-          <button class="quiz-option" data-value="option-expert" onclick="selectOption(this)"><span>Information Expert Pattern</span></button>
           <button class="quiz-option" data-value="option-creator" onclick="selectOption(this)"><span>Creator Pattern</span></button>
-          <button class="quiz-option" data-value="option-god" onclick="selectOption(this)"><span>The God Object Anti-Pattern</span></button>
+          <button class="quiz-option" data-value="option-expert" onclick="selectOption(this)"><span>Information Expert</span></button>
+          <button class="quiz-option" data-value="option-low" onclick="selectOption(this)"><span>Low Coupling</span></button>
         </div>
         <div class="quiz-feedback"></div>
       </div>
-
-      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m12-hard')">Final Visual Audit</button>
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m12-sequence')">Final Visual Audit</button>
     </div>
   </div>
 </section>
