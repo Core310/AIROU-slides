@@ -1,0 +1,36 @@
+<section class="module" id="module-10">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 10</span>
+    <h2 class="h1">Architecture Principles</h2>
+    <p class="lead">Software Architecture is the "style" of the structure of a system. Good architecture follows <strong>Six Core Principles</strong> that ensure a system is maintainable and scalable.</p>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m10-hard">
+      <!-- Hard Q1: Cohesion/Coupling Trade-offs -->
+      <div class="quiz-question-block" data-correct="option-b,option-c" data-explanation-right="Correct! High Cohesion (B) means a module is specialized. Low Coupling (C) means changing one module doesn't force changes in another. 'Tight connection' (A) is actually the definition of HIGH coupling, which is bad." data-explanation-wrong="Careful! High coupling is almost always a sign of poor architecture.">
+        <h3 class="quiz-question">Metric Analysis: You are auditing a legacy system. Which findings indicate GOOD software quality? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) Modules are tightly connected to ensure data speed.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Modules have High Cohesion (specialized tools).</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) Modules have Low Coupling (independent bricks).</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) The system has one large class that knows everything.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Hard Q2: Architectural Style Selection -->
+      <div class="quiz-question-block" data-correct="option-event" data-explanation-right="Correct! Event-Driven architecture (managed by a centralized Mealy machine) is best for real-time, responsive systems where components shouldn't wait for each other." data-explanation-wrong="Think about 'wait-free' interactions. N-Tier is rigid; Event-Driven is reactive.">
+        <h3 class="quiz-question">Strategic Choice: You are building a High-Frequency Trading platform where components must react instantly to price changes without being tightly coupled. Use:</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-tier" onclick="selectOption(this)"><span>N-Tier Architecture</span></button>
+          <button class="quiz-option" data-value="option-event" onclick="selectOption(this)"><span>Event-Driven Architecture</span></button>
+          <button class="quiz-option" data-value="option-client" onclick="selectOption(this)"><span>Simple Client-Server</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m10-hard')">Check My Strategy</button>
+    </div>
+  </div>
+</section>

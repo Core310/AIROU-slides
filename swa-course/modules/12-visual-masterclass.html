@@ -1,0 +1,36 @@
+<section class="module" id="module-12">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 12</span>
+    <h2 class="h1">Visual Blueprint Masterclass</h2>
+    <p class="lead">This module is dedicated entirely to interpreting rendered diagrams. Study the models and answer the questions based on their visual structure and formal notation.</p>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m12-hard">
+      <!-- Hard Q1: DFD Notation Errors -->
+      <div class="quiz-question-block" data-correct="option-b,option-d" data-explanation-right="Correct! In Gane & Sarson DFDs, Data Stores CANNOT talk to each other directly (B), and External Entities CANNOT talk to Data Stores directly (D). Data must always flow through a Process." data-explanation-wrong="Look closely at the 'middleman' rule. Every arrow MUST touch a Circle (Process) on at least one end.">
+        <h3 class="quiz-question">Visual Audit: You are reviewing a DFD. Which visual connections represent FORMAL ERRORS? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) Rectangle → Circle</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Open Box → Open Box</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) Circle → Open Box</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) Rectangle → Open Box</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Hard Q2: Sequence Timing & Lifelines -->
+      <div class="quiz-question-block" data-correct="option-expert" data-explanation-right="Correct! Asking an object for info it already HAS is the Information Expert pattern. This reduces coupling by keeping data and logic together." data-explanation-wrong="Think about where the 'truth' about a specific record lives.">
+        <h3 class="quiz-question">Pattern Recognition: In a Sequence Diagram, a 'Controller' sends a message to an 'Order' object: 'isPaid()'. This is an example of applying:</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-expert" onclick="selectOption(this)"><span>Information Expert Pattern</span></button>
+          <button class="quiz-option" data-value="option-creator" onclick="selectOption(this)"><span>Creator Pattern</span></button>
+          <button class="quiz-option" data-value="option-god" onclick="selectOption(this)"><span>The God Object Anti-Pattern</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m12-hard')">Final Visual Audit</button>
+    </div>
+  </div>
+</section>

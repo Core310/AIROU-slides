@@ -1,0 +1,25 @@
+<section class="module" id="module-6">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 06</span>
+    <h2 class="h1">The Actor's Journey</h2>
+    <p class="lead">A <strong>Sequence Diagram</strong> shows exactly how objects talk to each other over time. It's like a script for a play.</p>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m6-hard">
+      <!-- Hard Q1: Pattern Synthesis -->
+      <div class="quiz-question-block" data-correct="option-b,option-d" data-explanation-right="Correct! The CheckoutController manages the 'Place Order' scenario (Use-Case Controller), and the Order class checks its own availability because it HAS the information (Expert)." data-explanation-wrong="Wait! (A) is a God Object anti-pattern, and (C) violates Expert (CheckoutGUI doesn't know about stock).">
+        <h3 class="quiz-question">Redesign Challenge: A system currently does all checkout logic in the 'CheckoutPage' UI class. You decide to refactor using Expert + Creator + Controller patterns. Which decisions are correct? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) Create a 'GlobalManager' class to handle all system logic.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Create a 'CheckoutController' to manage the checkout scenario steps.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) Move availability checks into 'CheckoutGUI' to keep it fast.</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) Order checks its own availability and then the Library creates the Loan.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m6-hard')">Evaluate Patterns</button>
+    </div>
+  </div>
+</section>

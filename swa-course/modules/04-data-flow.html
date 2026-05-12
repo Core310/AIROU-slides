@@ -1,0 +1,36 @@
+<section class="module" id="module-4">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 04</span>
+    <h2 class="h1">Data Flow &amp; Swimlanes</h2>
+    <p class="lead">If a Domain Model is the skeleton, a <strong>Data Flow Diagram (DFD)</strong> is the circulatory system. It shows how information moves.</p>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m4-hard">
+      <!-- Hard Q1: DFD Levels -->
+      <div class="quiz-question-block" data-correct="option-lvl1" data-explanation-right="Correct! Level 0 is a black box (no stores). Level 1 is the first time we see internal persistence (Data Stores) and major functional partitions." data-explanation-wrong="Level 0 is the context; it strictly hides internal details.">
+        <h3 class="quiz-question">Level Logic: In a standard DFD hierarchy, which level is the FIRST to show 'Data Stores' and multiple internal processes?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-lvl0" onclick="selectOption(this)"><span>Level 0 (Context Diagram)</span></button>
+          <button class="quiz-option" data-value="option-lvl1" onclick="selectOption(this)"><span>Level 1 (The Overview)</span></button>
+          <button class="quiz-option" data-value="option-lvl2" onclick="selectOption(this)"><span>Level 2 (The Detail)</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Hard Q2: Connection Errors -->
+      <div class="quiz-question-block" data-correct="option-a,option-b,option-d" data-explanation-right="Correct! External entities cannot talk to Data Stores directly (A), Data Stores cannot talk to each other (B), and every process must have an output (D). (C) is allowed (Process to Entity)." data-explanation-wrong="Think about the 'Active Middleman' rule: data must always be transformed or moved by a Process.">
+        <h3 class="quiz-question">Which of the following represent ILLEGAL DFD connections? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) External Entity → Data Store</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Data Store → Data Store</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) Process → External Entity</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) Process with only input data flows (Black Hole)</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m4-hard')">Audit Diagram Rules</button>
+    </div>
+  </div>
+</section>

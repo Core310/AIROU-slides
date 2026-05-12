@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Software Requirements &amp; Analysis: From Vibe to Blueprint</title>
+
+  <!-- Google Fonts: Bricolage Grotesque · DM Sans · JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    :root {
+      --color-accent:       #2A7B9B;
+      --color-accent-hover: #1F6280;
+      --color-accent-light: #E4F2F7;
+      --color-accent-muted: #5A9DB8;
+    }
+  </style>
+
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="nav-inner">
+      <span class="nav-title">SWA: From Vibe to Blueprint</span>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <button class="nav-dot" data-target="module-0" data-tooltip="The Software Crisis" role="tab" aria-label="Module 0: The Software Crisis"></button>
+        <button class="nav-dot" data-target="module-1" data-tooltip="The Wicked Problem" role="tab" aria-label="Module 1: The Wicked Problem"></button>
+        <button class="nav-dot" data-target="module-2" data-tooltip="The War on Ambiguity" role="tab" aria-label="Module 2: The War on Ambiguity"></button>
+        <button class="nav-dot" data-target="module-3" data-tooltip="Mapping the Domain" role="tab" aria-label="Module 3: Mapping the Domain"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="Data Flow & Swimlanes" role="tab" aria-label="Module 4: Data Flow"></button>
+        <button class="nav-dot" data-target="module-5" data-tooltip="Use Cases & Stories" role="tab" aria-label="Module 5: Use Cases"></button>
+        <button class="nav-dot" data-target="module-6" data-tooltip="Sequence Diagrams" role="tab" aria-label="Module 6: Sequence Diagrams"></button>
+        <button class="nav-dot" data-target="module-7" data-tooltip="State of Mind" role="tab" aria-label="Module 7: State Machines"></button>
+        <button class="nav-dot" data-target="module-10" data-tooltip="Architecture Principles" role="tab" aria-label="Module 10: Architecture"></button>
+        <button class="nav-dot" data-target="module-11" data-tooltip="Design Blueprints" role="tab" aria-label="Module 11: Design Blueprints"></button>
+        <button class="nav-dot" data-target="module-12" data-tooltip="Visual Masterclass" role="tab" aria-label="Module 12: Visual Masterclass"></button>
+        <button class="nav-dot" data-target="module-8" data-tooltip="Validation & 'Illities'" role="tab" aria-label="Module 8: Validation"></button>
+        <button class="nav-dot" data-target="module-9" data-tooltip="Practice Exam" role="tab" aria-label="Module 9: Practice Exam"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+<section class="module" id="module-0">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 00</span>
+    <h2 class="h1">The Software Crisis</h2>
+    <p class="lead">Why are we here? Because <strong>62% of IT projects fail</strong>. 25% are cancelled before they even finish, and 40% fail to meet business needs.</p>
+    
+    <div class="callout callout-warning">
+      <div class="callout-icon">📉</div>
+      <div class="callout-content">
+        <strong class="callout-title">The FoxMeyer ERP Disaster</strong>
+        <p>In 1993, FoxMeyer (a $5 billion company) collapsed because a massive software project failed. Companies with poor analysis have <strong>3x more failures</strong> than successes.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <h3>The Cost of Mistakes</h3>
+    <p>A mistake in the requirements phase costs almost nothing to fix. But if that same mistake makes it to the final product, it can cost <strong>100x more</strong> to repair.</p>
+    
+    <div class="step-cards">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Analysis Phase</strong>
+          <p>Fix cost: $1 (Just update a document).</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Coding Phase</strong>
+          <p>Fix cost: $10 (Need to rewrite and retest code).</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Post-Release</strong>
+          <p>Fix cost: $100+ (Deployment, patches, lost trust).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m0">
+      <div class="quiz-question-block"
+           data-correct="option-a"
+           data-explanation-right="Correct! Over 60% of projects fail, often due to poor requirements analysis."
+           data-explanation-wrong="Actually, the failure rate is much higher than that. Check the stats in the first screen!">
+        <h3 class="quiz-question">What percentage of IT projects are estimated to fail?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>62%</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>15%</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>5%</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m0')">Check Answer</button>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-1">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 01</span>
+    <h2 class="h1">The "Wicked" Problem</h2>
+    <p class="lead">Why is building software so hard? It's not just the code — it's the <strong>requirements</strong>. Software development is what engineers call a <strong>wicked problem</strong>.</p>
+    
+    <div class="callout callout-accent">
+      <div class="callout-icon">💡</div>
+      <div class="callout-content">
+        <strong class="callout-title">Aha! Insight</strong>
+        <p>A "wicked problem" isn't just difficult; it's a problem that <strong>can't be fully defined</strong> until you've already tried to solve it. In software, you often don't know what you need until you see what you built.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m1-hard">
+      <!-- Hard Q1: Scenario Analysis -->
+      <div class="quiz-question-block" data-correct="option-a,option-b,option-d" data-explanation-right="Correct! These factors make the problem truly 'wicked': negotiation among stakeholders, long-term social/technical debt, and the necessity of iteration to define the goal itself." data-explanation-wrong="Analysis Failure: Wicked problems don't have 'optimal' solutions (C) and can NEVER be fully tested (E) because the environment changes.">
+        <h3 class="quiz-question">Scenario: You are designing a new Social Housing Allocation system. Stakeholders (tenants, government, builders) have conflicting goals, and the technology landscape changes every 6 months. Why is this a 'Wicked Problem'? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) The solution is negotiated among stakeholders, not discovered in data.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Technical decisions have long-term social consequences.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) There is a single optimal solution that can be mathematically derived.</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) The problem can only be understood through iterative attempts at a solution.</span></button>
+          <button class="quiz-option" data-value="option-e" onclick="selectOption(this)"><span>E) The solution can be fully verified using a closed test environment.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Hard Q2: Tacit vs Situated -->
+      <div class="quiz-question-block" data-correct="option-b" data-explanation-right="Correct! This is the 'Expert Trap'. The nurse's intuition is tacit knowledge that has become invisible to them through experience." data-explanation-wrong="Intentional deception (A) or lack of availability (C) are social hurdles, but not 'tacit' knowledge issues.">
+        <h3 class="quiz-question">During an interview, a senior nurse says: "I just look at the monitors and I KNOW when a patient is crashing. It's obvious." This represents a failure of elicitation because:</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) The nurse is intentionally hiding the complexity of the job.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Tacit knowledge is situated in her environment and difficult to articulate.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) The stakeholder is technically illiterate and should not be interviewed.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m1-hard')">Evaluate My Analysis</button>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-2">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 02</span>
+    <h2 class="h1">The War on Ambiguity</h2>
+    <p class="lead">In the world of requirements, <strong>ambiguity</strong> is the enemy. If a sentence can be interpreted in two ways, it probably will be — and both ways will be wrong.</p>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m2-hard">
+      <!-- Hard Q1: Subconscious Disambiguation -->
+      <div class="quiz-question-block" data-correct="option-b" data-explanation-right="Correct! In SD, the reader picks one meaning and is UNWARE that other valid interpretations exist, leading to silent but deadly errors." data-explanation-wrong="If the reader was aware (A), they would ask for clarification. The danger of SD is precisely that the reader is UNCONSCIOUS of the ambiguity.">
+        <h3 class="quiz-question">Concept: In 'Subconscious Disambiguation' (SD), which of the following is true?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) The reader is aware that there is an interpretation other than the first one that came to mind.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) The reader is NOT aware of other interpretations and believes the statement is clear.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) The writer intentionally uses vague language to allow for future changes.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Hard Q2: Req vs Spec nuances -->
+      <div class="quiz-question-block" data-correct="option-a,option-d,option-e" data-explanation-right="Correct! Requirements (A) describe the world, while Specifications (D, E) are the concrete behaviors/indicators the system uses to fulfill those requirements." data-explanation-wrong="Look closely at the 'Target Domain'. (B) is a technical implementation, and (C) is a Business Objective, not a problem-domain requirement.">
+        <h3 class="quiz-question">Which of the following correctly categorize 'Requirements' vs 'Specifications' in an aviation system? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) REQ: "The pilot must know if the landing gear is retracted."</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) REQ: "The database shall update the GearState table to 'Down'."</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) REQ: "Reduce crash rates by 5%."</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) SPEC: "The system shall output 5V to the GearStatus LED when Sensor A is high."</span></button>
+          <button class="quiz-option" data-value="option-e" onclick="selectOption(this)"><span>E) SPEC: "The system shall poll the pressure sensor at 100Hz."</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m2-hard')">Validate Logic</button>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-3">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 03</span>
+    <h2 class="h1">Mapping the Domain</h2>
+    <p class="lead">To build a system, you first have to understand the <strong>concepts</strong> it deals with. In Object-Oriented (OO) analysis, we map the real world into code-friendly structures.</p>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m3-hard">
+      <!-- Hard Q1: Aggregation vs Composition -->
+      <div class="quiz-question-block" data-correct="option-comp" data-explanation-right="Correct! A Human Heart cannot exist independently of a Human Body in this model. If the Body object is destroyed, the Heart must be destroyed too (Composition)." data-explanation-wrong="Think about 'Death' dependencies. Can the part exist if the whole is destroyed?">
+        <h3 class="quiz-question">Modeling: In a medical simulation, a 'HumanBody' contains a 'HumanHeart'. If the system deletes a 'HumanBody', the 'HumanHeart' must also be deleted. This is:</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-agg" onclick="selectOption(this)"><span>Aggregation (Empty Diamond)</span></button>
+          <button class="quiz-option" data-value="option-comp" onclick="selectOption(this)"><span>Composition (Solid Diamond)</span></button>
+          <button class="quiz-option" data-value="option-assoc" onclick="selectOption(this)"><span>Simple Association (Line)</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Hard Q2: Complex Hierarchy -->
+      <div class="quiz-question-block" data-correct="option-a,option-c" data-explanation-right="Correct! Inheritance (is-a) means a Truck IS a Vehicle. Aggregation (has-a) means a Truck HAS a collection of Cargo." data-explanation-wrong="A Truck IS Cargo? (B) No. A Vehicle IS a Truck? (D) No, that's backwards (Child is-a Parent).">
+        <h3 class="quiz-question">System Scenario: "A Truck is a type of Vehicle. A Truck has many Cargo items. Each Cargo item has a weight." Which mapping is correct? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) Truck inherits from Vehicle (Triangle).</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Truck inherits from Cargo.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) Truck has an Aggregation relationship with Cargo.</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) Vehicle inherits from Truck.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m3-hard')">Verify Modeling</button>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-4">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 04</span>
+    <h2 class="h1">Data Flow &amp; Swimlanes</h2>
+    <p class="lead">If a Domain Model is the skeleton, a <strong>Data Flow Diagram (DFD)</strong> is the circulatory system. It shows how information moves.</p>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m4-hard">
+      <!-- Hard Q1: DFD Levels -->
+      <div class="quiz-question-block" data-correct="option-lvl1" data-explanation-right="Correct! Level 0 is a black box (no stores). Level 1 is the first time we see internal persistence (Data Stores) and major functional partitions." data-explanation-wrong="Level 0 is the context; it strictly hides internal details.">
+        <h3 class="quiz-question">Level Logic: In a standard DFD hierarchy, which level is the FIRST to show 'Data Stores' and multiple internal processes?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-lvl0" onclick="selectOption(this)"><span>Level 0 (Context Diagram)</span></button>
+          <button class="quiz-option" data-value="option-lvl1" onclick="selectOption(this)"><span>Level 1 (The Overview)</span></button>
+          <button class="quiz-option" data-value="option-lvl2" onclick="selectOption(this)"><span>Level 2 (The Detail)</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Hard Q2: Connection Errors -->
+      <div class="quiz-question-block" data-correct="option-a,option-b,option-d" data-explanation-right="Correct! External entities cannot talk to Data Stores directly (A), Data Stores cannot talk to each other (B), and every process must have an output (D). (C) is allowed (Process to Entity)." data-explanation-wrong="Think about the 'Active Middleman' rule: data must always be transformed or moved by a Process.">
+        <h3 class="quiz-question">Which of the following represent ILLEGAL DFD connections? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) External Entity → Data Store</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Data Store → Data Store</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) Process → External Entity</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) Process with only input data flows (Black Hole)</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m4-hard')">Audit Diagram Rules</button>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-5">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 05</span>
+    <h2 class="h1">User Stories &amp; Agility</h2>
+    <p class="lead">In modern development, we often skip the 100-page document and use <span class="term" data-definition="Short, simple descriptions of a feature told from the perspective of the person who desires the new capability.">User Stories</span>. This keeps us <strong>Agile</strong>.</p>
+    
+    <div class="callout callout-accent">
+      <div class="callout-icon">⚡</div>
+      <div class="callout-content">
+        <strong class="callout-title">The Agile Way</strong>
+        <p>Agile is <strong>iterative</strong>. Instead of planning everything up front (Waterfall), we build small pieces, get feedback, and adjust. We value <strong>working software</strong> over exhaustive documentation.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <h3>The Magic Formula</h3>
+    <p>Every good user story follows a specific pattern. It answers <strong>Who</strong>, <strong>What</strong>, and <strong>Why</strong>.</p>
+    
+    <div class="translation-block">
+      <div class="translation-code">
+        <span class="translation-label">THE FORMULA</span>
+        <pre><code>As a &lt;role&gt;,
+I want &lt;goal&gt;,
+so that &lt;benefit&gt;.</code></pre>
+      </div>
+      <div class="translation-english">
+        <span class="translation-label">REAL EXAMPLE</span>
+        <div class="translation-lines">
+          <p class="tl">As a <strong>Pizza Customer</strong>,</p>
+          <p class="tl">I want to <strong>save my credit card</strong>,</p>
+          <p class="tl">so that I can <strong>check out faster</strong> next time.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <div class="callout-icon">ℹ️</div>
+      <div class="callout-content">
+        <strong class="callout-title">The Bonus Question</strong>
+        <p>In the original quiz, the course project was worth <strong>45%</strong> of the grade. That's because Requirements Engineering is a hands-on skill — you learn it by doing!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m5">
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Correct! Agile is all about iterative delivery and responding to change."
+           data-explanation-wrong="Actually, Agile values documentation, just less than working software. And it definitely needs planning!">
+        <h3 class="quiz-question">Which statement about Agile is correct?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Agile eliminates the need for any planning.</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Agile is iterative, incremental, and feedback-driven.</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Agile prioritizes documentation over working software.</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m5')">Check Answer</button>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-6">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 06</span>
+    <h2 class="h1">The Actor's Journey</h2>
+    <p class="lead">A <strong>Sequence Diagram</strong> shows exactly how objects talk to each other over time. It's like a script for a play.</p>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m6-hard">
+      <!-- Hard Q1: Pattern Synthesis -->
+      <div class="quiz-question-block" data-correct="option-b,option-d" data-explanation-right="Correct! The CheckoutController manages the 'Place Order' scenario (Use-Case Controller), and the Order class checks its own availability because it HAS the information (Expert)." data-explanation-wrong="Wait! (A) is a God Object anti-pattern, and (C) violates Expert (CheckoutGUI doesn't know about stock).">
+        <h3 class="quiz-question">Redesign Challenge: A system currently does all checkout logic in the 'CheckoutPage' UI class. You decide to refactor using Expert + Creator + Controller patterns. Which decisions are correct? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) Create a 'GlobalManager' class to handle all system logic.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Create a 'CheckoutController' to manage the checkout scenario steps.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) Move availability checks into 'CheckoutGUI' to keep it fast.</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) Order checks its own availability and then the Library creates the Loan.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m6-hard')">Evaluate Patterns</button>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-7">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 07</span>
+    <h2 class="h1">State of Mind</h2>
+    <p class="lead">A <strong>State Machine</strong> shows the life cycle of a single object through various states and transitions.</p>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m7-hard">
+      <!-- Hard Q1: Guards & Events -->
+      <div class="quiz-question-block" data-correct="option-b" data-explanation-right="Correct! A Guard Condition (in brackets) is a boolean check that must be true for the transition to fire. Without it, the state machine would transition every time the event occurred." data-explanation-wrong="It's not an output or a trigger; it's a 'gatekeeper' condition.">
+        <h3 class="quiz-question">Notation: In the transition 'submitRequest / [creditOk]', what is the purpose of the bracketed text?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) It is the 'Triggering Event' that starts the movement.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) It is a 'Guard Condition' that must be true to allow movement.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) It is an 'Output Action' that the system performs.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Hard Q2: Impossible States -->
+      <div class="quiz-question-block" data-correct="option-c" data-explanation-right="Correct! A pizza cannot be 'Delivered' before it is 'Prepared'. State machines find these logical gaps in your code before you write a single line." data-explanation-wrong="Think about the real-world sequence of events. Which one is physically impossible?">
+        <h3 class="quiz-question">Bug Catching: You are modeling a Pizza Order state machine. Which transition represents a LOGICAL BUG in the system?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) ORDERED → PREPARING</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) PREPARING → OUT_FOR_DELIVERY</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) ORDERED → DELIVERED</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m7-hard')">Verify State Logic</button>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-8">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 08</span>
+    <h2 class="h1">Validation: Building the Right Thing</h2>
+    <p class="lead">The final step in Requirements Engineering isn't writing code — it's <strong>Validation</strong>. This is where we ask: "Are we building the <strong>right</strong> product?"</p>
+    
+    <div class="icon-rows">
+      <div class="icon-row">
+        <div class="icon-circle" style="background: #D94F30">✅</div>
+        <div>
+          <strong>Validation</strong>
+          <p>"Are we building the right product?" (Does it meet the user's actual needs?)</p>
+        </div>
+      </div>
+      <div class="icon-row">
+        <div class="icon-circle" style="background: #2A7B9B">🔍</div>
+        <div>
+          <strong>Verification</strong>
+          <p>"Are we building the product right?" (Does it match the specification we wrote?)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <h3>The CrowdRE Revolution</h3>
+    <p>How do we validate requirements at scale? We use <span class="term" data-definition="Crowd-based Requirements Engineering — mining user feedback from the 'crowd' (app stores, social media) to find new requirements.">CrowdRE</span>. Instead of just interviewing 5 people, we listen to 5,000.</p>
+    
+    <div class="pattern-cards">
+      <div class="pattern-card">
+        <div class="pattern-icon">📱</div>
+        <h4 class="pattern-title">App Store Reviews</h4>
+        <p class="pattern-desc">Mining reviews for complaints or feature requests.</p>
+      </div>
+      <div class="pattern-card">
+        <div class="pattern-icon">💬</div>
+        <h4 class="pattern-title">Social Media</h4>
+        <p class="pattern-desc">Tracking Reddit or Twitter for "I wish this app could...".</p>
+      </div>
+      <div class="pattern-card">
+        <div class="pattern-icon">🎟️</div>
+        <h4 class="pattern-title">Support Tickets</h4>
+        <p class="pattern-desc">Analyzing patterns in common user problems.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m8">
+      <div class="quiz-question-block"
+           data-correct="option-b"
+           data-explanation-right="Correct! Validation is about ensuring the system satisfies the actual needs of the stakeholders."
+           data-explanation-wrong="Not quite. That's Verification. Validation is about the 'Right Product'.">
+        <h3 class="quiz-question">What is the core question of 'Validation'?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Are we building the product right?</span>
+          </button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Are we building the right product?</span>
+          </button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+            <div class="quiz-option-radio"></div>
+            <span>Is the code formatted correctly?</span>
+          </button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m8')">Check Answer</button>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-9">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 09</span>
+    <h2 class="h1">The Practice Exam (Challenge Mode)</h2>
+    <p class="lead">This is the final gauntlet. Every question requires scenario-based analysis and synthesis of multiple engineering principles. There are no easy definitions here.</p>
+  </div>
+
+  <div class="quiz-container" id="final-exam-challenge">
+    
+    <div class="screen">
+      <h3 class="screen-heading">Part 1: Analysis Trade-offs</h3>
+      
+      <!-- Challenge Q1: Requirements vs Objectives -->
+      <div class="quiz-question-block" data-correct="option-b,option-d" data-explanation-right="Correct! 'Reduce maintenance' is a Business Objective (B), while 'Update every 5s' is a technical Specification (D). The user requirement is the middle ground: the need for real-time visibility." data-explanation-wrong="Look for the 'Target' of each statement. Business goals vs User needs vs Technical behavior.">
+        <h3 class="quiz-question">1.1 You are designing a fleet tracking app. Which of these is a VALID classification? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) "Reduce maintenance costs by 15%" is a Functional Requirement.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) "Reduce maintenance costs by 15%" is a Business Objective.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) "Poll truck GPS every 5 seconds" is a Domain Assumption.</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) "Poll truck GPS every 5 seconds" is a System Specification.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Challenge Q2: NFR Fixes -->
+      <div class="quiz-question-block" data-correct="option-b,option-c" data-explanation-right="Correct! To fix 'many students', you must provide measurable, verifiable constraints like concurrent user counts and response time percentiles." data-explanation-wrong="Vague words like 'quickly' or 'video training' don't solve performance bottlenecks.">
+        <h3 class="quiz-question">1.2 A requirement says: "The system shall support many students during peak hours." Which revised statements correctly fix this weak requirement? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) The system shall allow students to book sessions quickly.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Average response time must be under 2s for 95% of requests at 2k load.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) The system shall support 5,000 concurrent users with zero downtime.</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) Students should undergo 30 mins of video training before peak hours.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h3 class="screen-heading">Part 2: Visual Logic</h3>
+
+      <!-- Challenge Q3: DFD Integrity -->
+      <div class="quiz-question-block" data-correct="option-b" data-explanation-right="Correct! This violates the 'Active Process' rule. Data cannot move itself; a process must transform or move it from one persistent store to another." data-explanation-wrong="Data stores (Open Boxes) are passive. They need a process (Circle) to move data between them.">
+        <h3 class="quiz-question">2.1 A DFD shows an arrow directly connecting 'USER_DB' to 'AUTH_LOGS'. Why is this a major modeling error?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) You cannot have two databases in the same system.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Data stores are passive; data must be moved by a Process middleman.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) 'USER_DB' is an External Entity and shouldn't be an open box.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Challenge Q4: Pattern Optimization -->
+      <div class="quiz-question-block" data-correct="option-c" data-explanation-right="Correct! The controller handles the interaction, but the 'Document' object checks its own status (Expert) and the 'Library' creates the record (Creator). This follows the principle of Separation of Concerns." data-explanation-wrong="Don't put logic in the UI (GUI) or a global 'God' object.">
+        <h3 class="quiz-question">2.2 In a Library DCD, you need to create a 'Loan' object. Which design best minimizes coupling?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) The 'CheckoutGUI' checks availability and calls 'new Loan()'.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) A 'GlobalSystemManager' handles all logic for all use cases.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) 'Document' checks availability; 'LoanController' directs the flow; 'Library' creates 'Loan'.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+    </div>
+
+    <div class="screen" style="text-align:center; padding-top: var(--space-8);">
+      <button class="quiz-check-btn" onclick="checkQuiz('final-exam-challenge')" style="font-size: var(--text-lg); padding: var(--space-4) var(--space-10);">Evaluate My Engineering Intuition</button>
+      <button class="quiz-reset-btn" onclick="resetQuiz('final-exam-challenge')">Clear All Answers</button>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-10">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 10</span>
+    <h2 class="h1">Architecture Principles</h2>
+    <p class="lead">Software Architecture is the "style" of the structure of a system. Good architecture follows <strong>Six Core Principles</strong> that ensure a system is maintainable and scalable.</p>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m10-hard">
+      <!-- Hard Q1: Cohesion/Coupling Trade-offs -->
+      <div class="quiz-question-block" data-correct="option-b,option-c" data-explanation-right="Correct! High Cohesion (B) means a module is specialized. Low Coupling (C) means changing one module doesn't force changes in another. 'Tight connection' (A) is actually the definition of HIGH coupling, which is bad." data-explanation-wrong="Careful! High coupling is almost always a sign of poor architecture.">
+        <h3 class="quiz-question">Metric Analysis: You are auditing a legacy system. Which findings indicate GOOD software quality? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) Modules are tightly connected to ensure data speed.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Modules have High Cohesion (specialized tools).</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) Modules have Low Coupling (independent bricks).</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) The system has one large class that knows everything.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Hard Q2: Architectural Style Selection -->
+      <div class="quiz-question-block" data-correct="option-event" data-explanation-right="Correct! Event-Driven architecture (managed by a centralized Mealy machine) is best for real-time, responsive systems where components shouldn't wait for each other." data-explanation-wrong="Think about 'wait-free' interactions. N-Tier is rigid; Event-Driven is reactive.">
+        <h3 class="quiz-question">Strategic Choice: You are building a High-Frequency Trading platform where components must react instantly to price changes without being tightly coupled. Use:</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-tier" onclick="selectOption(this)"><span>N-Tier Architecture</span></button>
+          <button class="quiz-option" data-value="option-event" onclick="selectOption(this)"><span>Event-Driven Architecture</span></button>
+          <button class="quiz-option" data-value="option-client" onclick="selectOption(this)"><span>Simple Client-Server</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m10-hard')">Check My Strategy</button>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-11">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 11</span>
+    <h2 class="h1">Design Blueprints</h2>
+    <p class="lead">Once we have our architecture, we need a <strong>Design Class Diagram (DCD)</strong>. This is the final blueprint developers use to write code. It's much more detailed than a simple Domain Model.</p>
+    
+    <div class="callout callout-accent">
+      <div class="callout-icon">🏗️</div>
+      <div class="callout-content">
+        <strong class="callout-title">DCD vs. Domain Model</strong>
+        <p>A Domain Model is about <strong>real-world concepts</strong>. A DCD is about <strong>software implementation</strong>. It includes specific methods (like <code>calculateTax()</code>), design classes (like <code>CheckoutController</code>), and technical details.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <h3>UML Relationships (The Precise Version)</h3>
+    <p>In a DCD, we use precise symbols to show how classes connect. These are critical for your project!</p>
+    
+    <div class="icon-rows">
+      <div class="icon-row">
+        <div class="icon-circle" style="background: #D94F30">◆</div>
+        <div>
+          <strong>Composition (Solid Diamond)</strong>
+          <p>The "Death" relationship. If the parent dies, the child dies. (e.g., A <strong>Car</strong> and its <strong>Engine</strong> — you can't have a car without an engine in this model).</p>
+        </div>
+      </div>
+      <div class="icon-row">
+        <div class="icon-circle" style="background: #2A7B9B">◇</div>
+        <div>
+          <strong>Aggregation (Empty Diamond)</strong>
+          <p>The "Roommate" relationship. If the parent dies, the child moves out. (e.g., A <strong>Library</strong> and its <strong>Books</strong> — the books exist elsewhere if the library closes).</p>
+        </div>
+      </div>
+      <div class="icon-row">
+        <div class="icon-circle" style="background: #2D8B55">▲</div>
+        <div>
+          <strong>Generalization (Triangle)</strong>
+          <p>The "Kind of" relationship. (e.g., A <strong>Truck</strong> is a type of <strong>Vehicle</strong>).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <h3>Blueprint Challenge: Food Delivery</h3>
+    <p>Imagine you're designing a Food Delivery app. You need to identify the components for your DCD. Based on the quiz logic, classify the following:</p>
+
+    <div class="quiz-container" id="quiz-dcd-challenge">
+      <!-- Classification Q1 -->
+      <div class="quiz-question-block" data-correct="option-class" data-explanation-right="Correct! 'Order' is a main domain object (Class)." data-explanation-wrong="It's not a property; it's the thing itself!">
+        <h3 class="quiz-question">Concept: "Order"</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-class" onclick="selectOption(this)"><span>Class (c)</span></button>
+          <button class="quiz-option" data-value="option-attr" onclick="selectOption(this)"><span>Attribute (a)</span></button>
+          <button class="quiz-option" data-value="option-assoc" onclick="selectOption(this)"><span>Association (as)</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Classification Q2 -->
+      <div class="quiz-question-block" data-correct="option-attr" data-explanation-right="Correct! 'Delivery Address' is a property of the Order." data-explanation-wrong="An address isn't usually a class on its own in simple models; it's a detail of the Order.">
+        <h3 class="quiz-question">Concept: "Delivery Address"</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-class" onclick="selectOption(this)"><span>Class (c)</span></button>
+          <button class="quiz-option" data-value="option-attr" onclick="selectOption(this)"><span>Attribute (a)</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Design Class Q3 -->
+      <div class="quiz-question-block" data-correct="option-controller" data-explanation-right="Correct! A 'PlaceOrderController' is a design class used to manage the use-case logic." data-explanation-wrong="Domain classes represent the business (Order, Item). Controllers are design-only.">
+        <h3 class="quiz-question">Which of these is a "Design Class" (not in the Domain Model)?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-domain" onclick="selectOption(this)"><span>Customer</span></button>
+          <button class="quiz-option" data-value="option-item" onclick="selectOption(this)"><span>FoodItem</span></button>
+          <button class="quiz-option" data-value="option-controller" onclick="selectOption(this)"><span>PlaceOrderController</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Relationship Q4 -->
+      <div class="quiz-question-block" data-correct="option-assoc" data-explanation-right="Correct! The controller uses the gateway to process payment, but the gateway isn't 'part' of the controller." data-explanation-wrong="It's a temporary usage relationship (Association or Dependency), not a parts-whole hierarchy.">
+        <h3 class="quiz-question">Relationship: 'Controller' to 'PaymentGateway'</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-assoc" onclick="selectOption(this)"><span>Association (Uses)</span></button>
+          <button class="quiz-option" data-value="option-agg" onclick="selectOption(this)"><span>Aggregation (Has-a)</span></button>
+          <button class="quiz-option" data-value="option-gen" onclick="selectOption(this)"><span>Generalization (Is-a)</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-dcd-challenge')">Check My Classification</button>
+    </div>
+  </div>
+
+  <div class="screen">
+    <h3>The Golden Rule of DCDs</h3>
+    <div class="callout callout-warning">
+      <div class="callout-icon">⭐</div>
+      <div class="callout-content">
+        <strong class="callout-title">Expert + Creator</strong>
+        <p>Your DCD should assign methods to the **Information Expert**. For example, if you need to check if a Customer can afford an order, that method belongs in the <code>Customer</code> class (Expert), not the <code>CheckoutGUI</code>!</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-12">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 12</span>
+    <h2 class="h1">Visual Blueprint Masterclass</h2>
+    <p class="lead">This module is dedicated entirely to interpreting rendered diagrams. Study the models and answer the questions based on their visual structure and formal notation.</p>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m12-hard">
+      <!-- Hard Q1: DFD Notation Errors -->
+      <div class="quiz-question-block" data-correct="option-b,option-d" data-explanation-right="Correct! In Gane & Sarson DFDs, Data Stores CANNOT talk to each other directly (B), and External Entities CANNOT talk to Data Stores directly (D). Data must always flow through a Process." data-explanation-wrong="Look closely at the 'middleman' rule. Every arrow MUST touch a Circle (Process) on at least one end.">
+        <h3 class="quiz-question">Visual Audit: You are reviewing a DFD. Which visual connections represent FORMAL ERRORS? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) Rectangle → Circle</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Open Box → Open Box</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) Circle → Open Box</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) Rectangle → Open Box</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Hard Q2: Sequence Timing & Lifelines -->
+      <div class="quiz-question-block" data-correct="option-expert" data-explanation-right="Correct! Asking an object for info it already HAS is the Information Expert pattern. This reduces coupling by keeping data and logic together." data-explanation-wrong="Think about where the 'truth' about a specific record lives.">
+        <h3 class="quiz-question">Pattern Recognition: In a Sequence Diagram, a 'Controller' sends a message to an 'Order' object: 'isPaid()'. This is an example of applying:</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-expert" onclick="selectOption(this)"><span>Information Expert Pattern</span></button>
+          <button class="quiz-option" data-value="option-creator" onclick="selectOption(this)"><span>Creator Pattern</span></button>
+          <button class="quiz-option" data-value="option-god" onclick="selectOption(this)"><span>The God Object Anti-Pattern</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m12-hard')">Final Visual Audit</button>
+    </div>
+  </div>
+</section>
+  </main>
+
+</body>
+</html>

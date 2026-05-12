@@ -1,0 +1,35 @@
+<section class="module" id="module-7">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 07</span>
+    <h2 class="h1">State of Mind</h2>
+    <p class="lead">A <strong>State Machine</strong> shows the life cycle of a single object through various states and transitions.</p>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m7-hard">
+      <!-- Hard Q1: Guards & Events -->
+      <div class="quiz-question-block" data-correct="option-b" data-explanation-right="Correct! A Guard Condition (in brackets) is a boolean check that must be true for the transition to fire. Without it, the state machine would transition every time the event occurred." data-explanation-wrong="It's not an output or a trigger; it's a 'gatekeeper' condition.">
+        <h3 class="quiz-question">Notation: In the transition 'submitRequest / [creditOk]', what is the purpose of the bracketed text?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) It is the 'Triggering Event' that starts the movement.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) It is a 'Guard Condition' that must be true to allow movement.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) It is an 'Output Action' that the system performs.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Hard Q2: Impossible States -->
+      <div class="quiz-question-block" data-correct="option-c" data-explanation-right="Correct! A pizza cannot be 'Delivered' before it is 'Prepared'. State machines find these logical gaps in your code before you write a single line." data-explanation-wrong="Think about the real-world sequence of events. Which one is physically impossible?">
+        <h3 class="quiz-question">Bug Catching: You are modeling a Pizza Order state machine. Which transition represents a LOGICAL BUG in the system?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) ORDERED → PREPARING</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) PREPARING → OUT_FOR_DELIVERY</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) ORDERED → DELIVERED</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m7-hard')">Verify State Logic</button>
+    </div>
+  </div>
+</section>

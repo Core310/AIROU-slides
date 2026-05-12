@@ -1,0 +1,37 @@
+<section class="module" id="module-2">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 02</span>
+    <h2 class="h1">The War on Ambiguity</h2>
+    <p class="lead">In the world of requirements, <strong>ambiguity</strong> is the enemy. If a sentence can be interpreted in two ways, it probably will be — and both ways will be wrong.</p>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m2-hard">
+      <!-- Hard Q1: Subconscious Disambiguation -->
+      <div class="quiz-question-block" data-correct="option-b" data-explanation-right="Correct! In SD, the reader picks one meaning and is UNWARE that other valid interpretations exist, leading to silent but deadly errors." data-explanation-wrong="If the reader was aware (A), they would ask for clarification. The danger of SD is precisely that the reader is UNCONSCIOUS of the ambiguity.">
+        <h3 class="quiz-question">Concept: In 'Subconscious Disambiguation' (SD), which of the following is true?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) The reader is aware that there is an interpretation other than the first one that came to mind.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) The reader is NOT aware of other interpretations and believes the statement is clear.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) The writer intentionally uses vague language to allow for future changes.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Hard Q2: Req vs Spec nuances -->
+      <div class="quiz-question-block" data-correct="option-a,option-d,option-e" data-explanation-right="Correct! Requirements (A) describe the world, while Specifications (D, E) are the concrete behaviors/indicators the system uses to fulfill those requirements." data-explanation-wrong="Look closely at the 'Target Domain'. (B) is a technical implementation, and (C) is a Business Objective, not a problem-domain requirement.">
+        <h3 class="quiz-question">Which of the following correctly categorize 'Requirements' vs 'Specifications' in an aviation system? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) REQ: "The pilot must know if the landing gear is retracted."</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) REQ: "The database shall update the GearState table to 'Down'."</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) REQ: "Reduce crash rates by 5%."</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) SPEC: "The system shall output 5V to the GearStatus LED when Sensor A is high."</span></button>
+          <button class="quiz-option" data-value="option-e" onclick="selectOption(this)"><span>E) SPEC: "The system shall poll the pressure sensor at 100Hz."</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m2-hard')">Validate Logic</button>
+    </div>
+  </div>
+</section>

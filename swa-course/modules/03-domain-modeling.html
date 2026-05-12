@@ -1,0 +1,36 @@
+<section class="module" id="module-3">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 03</span>
+    <h2 class="h1">Mapping the Domain</h2>
+    <p class="lead">To build a system, you first have to understand the <strong>concepts</strong> it deals with. In Object-Oriented (OO) analysis, we map the real world into code-friendly structures.</p>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m3-hard">
+      <!-- Hard Q1: Aggregation vs Composition -->
+      <div class="quiz-question-block" data-correct="option-comp" data-explanation-right="Correct! A Human Heart cannot exist independently of a Human Body in this model. If the Body object is destroyed, the Heart must be destroyed too (Composition)." data-explanation-wrong="Think about 'Death' dependencies. Can the part exist if the whole is destroyed?">
+        <h3 class="quiz-question">Modeling: In a medical simulation, a 'HumanBody' contains a 'HumanHeart'. If the system deletes a 'HumanBody', the 'HumanHeart' must also be deleted. This is:</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-agg" onclick="selectOption(this)"><span>Aggregation (Empty Diamond)</span></button>
+          <button class="quiz-option" data-value="option-comp" onclick="selectOption(this)"><span>Composition (Solid Diamond)</span></button>
+          <button class="quiz-option" data-value="option-assoc" onclick="selectOption(this)"><span>Simple Association (Line)</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Hard Q2: Complex Hierarchy -->
+      <div class="quiz-question-block" data-correct="option-a,option-c" data-explanation-right="Correct! Inheritance (is-a) means a Truck IS a Vehicle. Aggregation (has-a) means a Truck HAS a collection of Cargo." data-explanation-wrong="A Truck IS Cargo? (B) No. A Vehicle IS a Truck? (D) No, that's backwards (Child is-a Parent).">
+        <h3 class="quiz-question">System Scenario: "A Truck is a type of Vehicle. A Truck has many Cargo items. Each Cargo item has a weight." Which mapping is correct? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) Truck inherits from Vehicle (Triangle).</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Truck inherits from Cargo.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) Truck has an Aggregation relationship with Cargo.</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) Vehicle inherits from Truck.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m3-hard')">Verify Modeling</button>
+    </div>
+  </div>
+</section>

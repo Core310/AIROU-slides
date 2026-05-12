@@ -1,0 +1,45 @@
+<section class="module" id="module-1">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 01</span>
+    <h2 class="h1">The "Wicked" Problem</h2>
+    <p class="lead">Why is building software so hard? It's not just the code — it's the <strong>requirements</strong>. Software development is what engineers call a <strong>wicked problem</strong>.</p>
+    
+    <div class="callout callout-accent">
+      <div class="callout-icon">💡</div>
+      <div class="callout-content">
+        <strong class="callout-title">Aha! Insight</strong>
+        <p>A "wicked problem" isn't just difficult; it's a problem that <strong>can't be fully defined</strong> until you've already tried to solve it. In software, you often don't know what you need until you see what you built.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <div class="quiz-container" id="quiz-m1-hard">
+      <!-- Hard Q1: Scenario Analysis -->
+      <div class="quiz-question-block" data-correct="option-a,option-b,option-d" data-explanation-right="Correct! These factors make the problem truly 'wicked': negotiation among stakeholders, long-term social/technical debt, and the necessity of iteration to define the goal itself." data-explanation-wrong="Analysis Failure: Wicked problems don't have 'optimal' solutions (C) and can NEVER be fully tested (E) because the environment changes.">
+        <h3 class="quiz-question">Scenario: You are designing a new Social Housing Allocation system. Stakeholders (tenants, government, builders) have conflicting goals, and the technology landscape changes every 6 months. Why is this a 'Wicked Problem'? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) The solution is negotiated among stakeholders, not discovered in data.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Technical decisions have long-term social consequences.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) There is a single optimal solution that can be mathematically derived.</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) The problem can only be understood through iterative attempts at a solution.</span></button>
+          <button class="quiz-option" data-value="option-e" onclick="selectOption(this)"><span>E) The solution can be fully verified using a closed test environment.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Hard Q2: Tacit vs Situated -->
+      <div class="quiz-question-block" data-correct="option-b" data-explanation-right="Correct! This is the 'Expert Trap'. The nurse's intuition is tacit knowledge that has become invisible to them through experience." data-explanation-wrong="Intentional deception (A) or lack of availability (C) are social hurdles, but not 'tacit' knowledge issues.">
+        <h3 class="quiz-question">During an interview, a senior nurse says: "I just look at the monitors and I KNOW when a patient is crashing. It's obvious." This represents a failure of elicitation because:</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) The nurse is intentionally hiding the complexity of the job.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Tacit knowledge is situated in her environment and difficult to articulate.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) The stakeholder is technically illiterate and should not be interviewed.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-m1-hard')">Evaluate My Analysis</button>
+    </div>
+  </div>
+</section>

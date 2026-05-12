@@ -1,0 +1,69 @@
+<section class="module" id="module-9">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 09</span>
+    <h2 class="h1">The Practice Exam (Challenge Mode)</h2>
+    <p class="lead">This is the final gauntlet. Every question requires scenario-based analysis and synthesis of multiple engineering principles. There are no easy definitions here.</p>
+  </div>
+
+  <div class="quiz-container" id="final-exam-challenge">
+    
+    <div class="screen">
+      <h3 class="screen-heading">Part 1: Analysis Trade-offs</h3>
+      
+      <!-- Challenge Q1: Requirements vs Objectives -->
+      <div class="quiz-question-block" data-correct="option-b,option-d" data-explanation-right="Correct! 'Reduce maintenance' is a Business Objective (B), while 'Update every 5s' is a technical Specification (D). The user requirement is the middle ground: the need for real-time visibility." data-explanation-wrong="Look for the 'Target' of each statement. Business goals vs User needs vs Technical behavior.">
+        <h3 class="quiz-question">1.1 You are designing a fleet tracking app. Which of these is a VALID classification? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) "Reduce maintenance costs by 15%" is a Functional Requirement.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) "Reduce maintenance costs by 15%" is a Business Objective.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) "Poll truck GPS every 5 seconds" is a Domain Assumption.</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) "Poll truck GPS every 5 seconds" is a System Specification.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Challenge Q2: NFR Fixes -->
+      <div class="quiz-question-block" data-correct="option-b,option-c" data-explanation-right="Correct! To fix 'many students', you must provide measurable, verifiable constraints like concurrent user counts and response time percentiles." data-explanation-wrong="Vague words like 'quickly' or 'video training' don't solve performance bottlenecks.">
+        <h3 class="quiz-question">1.2 A requirement says: "The system shall support many students during peak hours." Which revised statements correctly fix this weak requirement? (Select ALL)</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) The system shall allow students to book sessions quickly.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Average response time must be under 2s for 95% of requests at 2k load.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) The system shall support 5,000 concurrent users with zero downtime.</span></button>
+          <button class="quiz-option" data-value="option-d" onclick="selectOption(this)"><span>D) Students should undergo 30 mins of video training before peak hours.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h3 class="screen-heading">Part 2: Visual Logic</h3>
+
+      <!-- Challenge Q3: DFD Integrity -->
+      <div class="quiz-question-block" data-correct="option-b" data-explanation-right="Correct! This violates the 'Active Process' rule. Data cannot move itself; a process must transform or move it from one persistent store to another." data-explanation-wrong="Data stores (Open Boxes) are passive. They need a process (Circle) to move data between them.">
+        <h3 class="quiz-question">2.1 A DFD shows an arrow directly connecting 'USER_DB' to 'AUTH_LOGS'. Why is this a major modeling error?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) You cannot have two databases in the same system.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) Data stores are passive; data must be moved by a Process middleman.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) 'USER_DB' is an External Entity and shouldn't be an open box.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Challenge Q4: Pattern Optimization -->
+      <div class="quiz-question-block" data-correct="option-c" data-explanation-right="Correct! The controller handles the interaction, but the 'Document' object checks its own status (Expert) and the 'Library' creates the record (Creator). This follows the principle of Separation of Concerns." data-explanation-wrong="Don't put logic in the UI (GUI) or a global 'God' object.">
+        <h3 class="quiz-question">2.2 In a Library DCD, you need to create a 'Loan' object. Which design best minimizes coupling?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><span>A) The 'CheckoutGUI' checks availability and calls 'new Loan()'.</span></button>
+          <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><span>B) A 'GlobalSystemManager' handles all logic for all use cases.</span></button>
+          <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><span>C) 'Document' checks availability; 'LoanController' directs the flow; 'Library' creates 'Loan'.</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+    </div>
+
+    <div class="screen" style="text-align:center; padding-top: var(--space-8);">
+      <button class="quiz-check-btn" onclick="checkQuiz('final-exam-challenge')" style="font-size: var(--text-lg); padding: var(--space-4) var(--space-10);">Evaluate My Engineering Intuition</button>
+      <button class="quiz-reset-btn" onclick="resetQuiz('final-exam-challenge')">Clear All Answers</button>
+    </div>
+  </div>
+</section>

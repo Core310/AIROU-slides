@@ -1,0 +1,107 @@
+<section class="module" id="module-11">
+  <div class="screen animate-in">
+    <span class="eyebrow">Module 11</span>
+    <h2 class="h1">Design Blueprints</h2>
+    <p class="lead">Once we have our architecture, we need a <strong>Design Class Diagram (DCD)</strong>. This is the final blueprint developers use to write code. It's much more detailed than a simple Domain Model.</p>
+    
+    <div class="callout callout-accent">
+      <div class="callout-icon">🏗️</div>
+      <div class="callout-content">
+        <strong class="callout-title">DCD vs. Domain Model</strong>
+        <p>A Domain Model is about <strong>real-world concepts</strong>. A DCD is about <strong>software implementation</strong>. It includes specific methods (like <code>calculateTax()</code>), design classes (like <code>CheckoutController</code>), and technical details.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <h3>UML Relationships (The Precise Version)</h3>
+    <p>In a DCD, we use precise symbols to show how classes connect. These are critical for your project!</p>
+    
+    <div class="icon-rows">
+      <div class="icon-row">
+        <div class="icon-circle" style="background: #D94F30">◆</div>
+        <div>
+          <strong>Composition (Solid Diamond)</strong>
+          <p>The "Death" relationship. If the parent dies, the child dies. (e.g., A <strong>Car</strong> and its <strong>Engine</strong> — you can't have a car without an engine in this model).</p>
+        </div>
+      </div>
+      <div class="icon-row">
+        <div class="icon-circle" style="background: #2A7B9B">◇</div>
+        <div>
+          <strong>Aggregation (Empty Diamond)</strong>
+          <p>The "Roommate" relationship. If the parent dies, the child moves out. (e.g., A <strong>Library</strong> and its <strong>Books</strong> — the books exist elsewhere if the library closes).</p>
+        </div>
+      </div>
+      <div class="icon-row">
+        <div class="icon-circle" style="background: #2D8B55">▲</div>
+        <div>
+          <strong>Generalization (Triangle)</strong>
+          <p>The "Kind of" relationship. (e.g., A <strong>Truck</strong> is a type of <strong>Vehicle</strong>).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <h3>Blueprint Challenge: Food Delivery</h3>
+    <p>Imagine you're designing a Food Delivery app. You need to identify the components for your DCD. Based on the quiz logic, classify the following:</p>
+
+    <div class="quiz-container" id="quiz-dcd-challenge">
+      <!-- Classification Q1 -->
+      <div class="quiz-question-block" data-correct="option-class" data-explanation-right="Correct! 'Order' is a main domain object (Class)." data-explanation-wrong="It's not a property; it's the thing itself!">
+        <h3 class="quiz-question">Concept: "Order"</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-class" onclick="selectOption(this)"><span>Class (c)</span></button>
+          <button class="quiz-option" data-value="option-attr" onclick="selectOption(this)"><span>Attribute (a)</span></button>
+          <button class="quiz-option" data-value="option-assoc" onclick="selectOption(this)"><span>Association (as)</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Classification Q2 -->
+      <div class="quiz-question-block" data-correct="option-attr" data-explanation-right="Correct! 'Delivery Address' is a property of the Order." data-explanation-wrong="An address isn't usually a class on its own in simple models; it's a detail of the Order.">
+        <h3 class="quiz-question">Concept: "Delivery Address"</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-class" onclick="selectOption(this)"><span>Class (c)</span></button>
+          <button class="quiz-option" data-value="option-attr" onclick="selectOption(this)"><span>Attribute (a)</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Design Class Q3 -->
+      <div class="quiz-question-block" data-correct="option-controller" data-explanation-right="Correct! A 'PlaceOrderController' is a design class used to manage the use-case logic." data-explanation-wrong="Domain classes represent the business (Order, Item). Controllers are design-only.">
+        <h3 class="quiz-question">Which of these is a "Design Class" (not in the Domain Model)?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-domain" onclick="selectOption(this)"><span>Customer</span></button>
+          <button class="quiz-option" data-value="option-item" onclick="selectOption(this)"><span>FoodItem</span></button>
+          <button class="quiz-option" data-value="option-controller" onclick="selectOption(this)"><span>PlaceOrderController</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <!-- Relationship Q4 -->
+      <div class="quiz-question-block" data-correct="option-assoc" data-explanation-right="Correct! The controller uses the gateway to process payment, but the gateway isn't 'part' of the controller." data-explanation-wrong="It's a temporary usage relationship (Association or Dependency), not a parts-whole hierarchy.">
+        <h3 class="quiz-question">Relationship: 'Controller' to 'PaymentGateway'</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-value="option-assoc" onclick="selectOption(this)"><span>Association (Uses)</span></button>
+          <button class="quiz-option" data-value="option-agg" onclick="selectOption(this)"><span>Aggregation (Has-a)</span></button>
+          <button class="quiz-option" data-value="option-gen" onclick="selectOption(this)"><span>Generalization (Is-a)</span></button>
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <button class="quiz-check-btn" onclick="checkQuiz('quiz-dcd-challenge')">Check My Classification</button>
+    </div>
+  </div>
+
+  <div class="screen">
+    <h3>The Golden Rule of DCDs</h3>
+    <div class="callout callout-warning">
+      <div class="callout-icon">⭐</div>
+      <div class="callout-content">
+        <strong class="callout-title">Expert + Creator</strong>
+        <p>Your DCD should assign methods to the **Information Expert**. For example, if you need to check if a Customer can afford an order, that method belongs in the <code>Customer</code> class (Expert), not the <code>CheckoutGUI</code>!</p>
+      </div>
+    </div>
+  </div>
+</section>
